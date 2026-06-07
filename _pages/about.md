@@ -23,7 +23,7 @@ latest_posts:
   scrollable: true
   limit: 3
 
-contact_email: isly29@gmail.com
+contact_email: contact@cjhuang.com
 ---
 
 I am a **plastic and reconstructive surgeon** and **burn intensivist** at [Linkou Chang Gung Memorial Hospital](https://cgmhburncenter.org), and a Ph.D. student in Biomedical Informatics at [National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/).
