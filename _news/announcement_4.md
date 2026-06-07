@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Promoted to **Assistant Professor (academic track)** at Chang Gung Memorial Hospital. 🎓
+Promoted to **Assistant Professor** at Chang Gung Memorial Hospital. 🎓

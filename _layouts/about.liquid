@@ -64,6 +64,15 @@ layout: default
       {% include selected_papers.liquid %}
     {% endif %}
 
+    <!-- Contact -->
+    {% if page.contact_email %}
+      <h2>contact</h2>
+      <p>
+        <a href="mailto:{{ page.contact_email }}">{{ page.contact_email }}</a>
+        {% if site.contact_note %}<br><span class="text-muted">{{ site.contact_note }}</span>{% endif %}
+      </p>
+    {% endif %}
+
     <!-- Social -->
     {% if page.social %}
       <div class="social">
