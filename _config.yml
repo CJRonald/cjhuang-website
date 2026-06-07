@@ -266,8 +266,8 @@ jekyll-archives:
     enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
 
 # Tags / categories shown at the top of the blog page. Add new ones here as you write posts.
-display_tags: ["clinical-ai", "burn", "meta"]
-display_categories: ["notes"]
+display_tags: ["clinical-ai", "burn", "meta", "oculoplastic"]
+display_categories: ["notes", "patient-education"]
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar
