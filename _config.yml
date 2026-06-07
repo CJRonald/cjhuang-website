@@ -274,8 +274,8 @@ display_categories: ["notes"]
 # -----------------------------------------------------------------------------
 
 scholar:
-  last_name: [Einstein]
-  first_name: [Albert, A.]
+  last_name: [Huang]
+  first_name: [Chih-Jung, Ronald, "Chih-Jung", C.-J., C. J.]
 
   style: apa
   locale: en
@@ -639,20 +639,22 @@ third_party_libraries:
 # Get external JSON data
 # -----------------------------------------------------------------------------
 
-jekyll_get_json:
-  - data: resume
-    json: assets/json/resume.json # it can also be an url
-
-jsonresume:
-  - basics
-  - work
-  - education
-  - publications
-  - projects
-  - volunteer
-  - awards
-  - certificates
-  - skills
-  - languages
-  - interests
-  - references
+# jekyll_get_json disabled — CV page now reads _data/cv.yml (our real data),
+# not the Einstein demo assets/json/resume.json. Re-enable only if switching to JSON Resume format.
+# jekyll_get_json:
+#   - data: resume
+#     json: assets/json/resume.json # it can also be an url
+#
+# jsonresume:
+#   - basics
+#   - work
+#   - education
+#   - publications
+#   - projects
+#   - volunteer
+#   - awards
+#   - certificates
+#   - skills
+#   - languages
+#   - interests
+#   - references
