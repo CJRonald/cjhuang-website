@@ -24,7 +24,7 @@ latest_posts:
   limit: 3
 ---
 
-I am a **plastic and reconstructive surgeon** and **burn intensivist** at [Linkou Chang Gung Memorial Hospital](https://cgmhburncenter.org), and a Ph.D. candidate in Biomedical Informatics at [National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/).
+I am a **plastic and reconstructive surgeon** and **burn intensivist** at [Linkou Chang Gung Memorial Hospital](https://cgmhburncenter.org), and a Ph.D. student in Biomedical Informatics at [National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/).
 
 My clinical practice spans acute and reconstructive **burn care**, **rhinoplasty**, **craniofacial surgery**, and **microsurgery**. Alongside the operating room, I build **clinically grounded AI** — translating problems I meet at the bedside into models that are actually usable: burn wound segmentation and TBSA estimation, inhalation-injury risk prediction, craniofacial / orthognathic image analysis, and quantitative rhinoplasty planning.
 
