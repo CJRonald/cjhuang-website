@@ -39,12 +39,13 @@
 - title: Academic Appointments
   type: time_table
   contents:
+    - title: Assistant Professor-level Attending Physician (academic track)
+      institution: Chang Gung Memorial Hospital
+      year: 2026 -
+      description:
+        - Promoted June 2026
     - title: Lecturer-level Attending Physician
       year: 2024
-    - title: Assistant Professor-level Attending Physician
-      year: 2025 -
-      description:
-        - Application submitted Nov 2025, under review
 
 - title: Research Interests
   type: nested_list
