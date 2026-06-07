@@ -1,9 +1,10 @@
 # this file contains the social media links and usernames of the author
 # the socials will be displayed in the order they are defined here
 # for more information, please refer to the documentation of jekyll-socials plugin: https://github.com/george-gca/jekyll-socials
-cv_pdf: /assets/pdf/cv.pdf # path to your CV PDF file
+# Header shows ONLY the email icon. Others kept commented (preserved for future use).
 email: contact@cjhuang.com # your email address (Cloudflare Email Routing → Gmail)
-github_username: CJRonald # your GitHub username
-# scholar_userid: # TODO: add your Google Scholar author ID to enable the Scholar icon + auto citation badges
+# cv_pdf: /assets/pdf/cv.pdf # CV page is in the navbar; icon hidden
+# github_username: CJRonald # hidden from header
+# scholar_userid: o5hHtnQAAAAJ # Google Scholar author ID — hidden from header (still set in _config for citation plugin if needed)
 # orcid_id: # TODO: add your ORCID iD (e.g. 0000-0000-0000-0000)
-rss_icon: false # comment this line to hide the RSS icon
+# rss_icon: false # commented out → RSS icon hidden
