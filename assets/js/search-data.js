@@ -37,13 +37,6 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/blog/";
           },
-        },{id: "nav-cv",
-          title: "cv",
-          description: "Curriculum vitae of Ronald Chih-Jung Huang, M.D.",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/cv/";
-          },
         },{id: "nav-lab",
           title: "lab ↗",
           description: "",
