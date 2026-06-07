@@ -30,6 +30,20 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cases/";
           },
+        },{id: "nav-teaching",
+          title: "teaching",
+          description: "Invited talks, research mentorship, and clinical &amp; AI teaching.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/teaching/";
+          },
+        },{id: "nav-cv",
+          title: "cv",
+          description: "Curriculum vitae of Ronald Chih-Jung Huang, M.D.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
         },{id: "nav-blog",
           title: "blog",
           description: "",
@@ -53,6 +67,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2026/hello/";
+          
+        },
+      },{id: "post-from-benchmark-to-bedside",
+        
+          title: "From benchmark to bedside",
+        
+        description: "Why a high IoU isn&#39;t the same as a useful tool — notes from building burn-care AI.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/benchmark-to-bedside/";
           
         },
       },{id: "news-started-my-ph-d-in-biomedical-informatics-at-national-yang-ming-chiao-tung-university-nycu-focusing-on-multimodal-ai-for-burn-and-reconstructive-care",
