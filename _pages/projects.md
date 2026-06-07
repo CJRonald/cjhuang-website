@@ -1,65 +1,38 @@
 ---
 layout: page
-title: projects
-permalink: /projects/
-description: A growing collection of your cool projects.
+title: research
+permalink: /research/
+description: Clinically grounded AI for burn care, craniofacial and reconstructive surgery.
 nav: true
 nav_order: 3
-display_categories: [work, fun]
-horizontal: false
 ---
 
-<!-- pages/projects.md -->
-<div class="projects">
-{% if site.enable_project_categories and page.display_categories %}
-  <!-- Display categorized projects -->
-  {% for category in page.display_categories %}
-  <a id="{{ category }}" href=".#{{ category }}">
-    <h2 class="category">{{ category }}</h2>
-  </a>
-  {% assign categorized_projects = site.projects | where: "category", category %}
-  {% assign sorted_projects = categorized_projects | sort: "importance" %}
-  <!-- Generate cards for each project -->
-  {% if page.horizontal %}
-  <div class="container">
-    <div class="row row-cols-1 row-cols-md-2">
-    {% for project in sorted_projects %}
-      {% include projects_horizontal.liquid %}
-    {% endfor %}
-    </div>
-  </div>
-  {% else %}
-  <div class="row row-cols-1 row-cols-md-3">
-    {% for project in sorted_projects %}
-      {% include projects.liquid %}
-    {% endfor %}
-  </div>
-  {% endif %}
-  {% endfor %}
+My research sits at the intersection of **plastic & reconstructive surgery** and **applied AI**. Most projects start from a problem I meet in the burn unit or operating room, and aim for tools that are genuinely usable in clinical workflow rather than benchmark-only models.
 
-{% else %}
+## Research areas
 
-<!-- Display projects without categories -->
+**Burn care AI.**
+Automatic burn wound segmentation and total-body-surface-area (TBSA) estimation, inhalation-injury risk prediction, and large-scale clinical outcome modelling (transfusion, infection, length of stay) from the Chang Gung Research Database (CGRD).
 
-{% assign sorted_projects = site.projects | sort: "importance" %}
+**Craniofacial & orthognathic imaging.**
+Deep-learning landmark detection and segmentation on CBCT and 3D photogrammetry for orthognathic surgery planning, including Bad Split risk prediction — with a focus on the systematic errors that off-the-shelf Western models make on Asian Class III anatomy.
 
-  <!-- Generate cards for each project -->
+**Quantitative rhinoplasty.**
+Photogrammetric, 3D-based frameworks for measuring and predicting nasal tip projection, rotation and stability after cartilage grafting.
 
-{% if page.horizontal %}
+**Multimodal clinical AI.**
+Vision–language and NLP methods for extracting structure from clinical narratives, imaging and structured records.
 
-  <div class="container">
-    <div class="row row-cols-1 row-cols-md-2">
-    {% for project in sorted_projects %}
-      {% include projects_horizontal.liquid %}
-    {% endfor %}
-    </div>
-  </div>
-  {% else %}
-  <div class="row row-cols-1 row-cols-md-3">
-    {% for project in sorted_projects %}
-      {% include projects.liquid %}
-    {% endfor %}
-  </div>
-  {% endif %}
-{% endif %}
-</div>
+---
+
+## AI demos
+
+Live, interactive demos of tools coming out of the lab — hosted on Hugging Face Spaces. The full collection lives on the <a href="https://lab.cjhuang.com" target="_blank">VDI Lab site</a>.
+
+- **Burn wound segmentation** — Deep Supervision UNet++ (IoU 0.85) → [demo](https://huggingface.co/spaces/CJRonald/burn-segmentation-demo){:target="_blank"}
+- **Flap perfusion prediction** — temperature + color features → [demo](https://huggingface.co/spaces/CJRonald/flap-prediction-demo){:target="_blank"}
+  <br><em>Note: a 2022 research prototype with known patient-level data leakage — shown for transparency, not as a clinical tool.</em>
+
+---
+
+For the lab, team, and complete project list, visit <a href="https://lab.cjhuang.com" target="_blank">lab.cjhuang.com →</a>

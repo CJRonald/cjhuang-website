@@ -3,9 +3,9 @@ layout: cv
 permalink: /cv/
 title: cv
 nav: true
-nav_order: 5
-cv_pdf: /assets/pdf/example_pdf.pdf # you can also use external links here
-description: This is a description of the page. You can modify it in '_pages/cv.md'. You can also change or remove the top pdf download button.
+nav_order: 6
+cv_pdf: cv.pdf # drop CJHuang_CV_2026.pdf into assets/pdf/cv.pdf
+description: Curriculum vitae of Ronald Chih-Jung Huang, M.D.
 toc:
   sidebar: left
 ---

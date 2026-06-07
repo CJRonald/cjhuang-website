@@ -2,16 +2,13 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: Plastic & Reconstructive Surgeon · Burn Intensivist · AI Researcher — <a href='https://cgmhburncenter.org' target='_blank'>Chang Gung Memorial Hospital</a>
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
-  more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+  more_info:
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
@@ -22,13 +19,13 @@ announcements:
   limit: 5 # leave blank to include all the news in the `_news` folder
 
 latest_posts:
-  enabled: true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 3 # leave blank to include all the blog posts
+  enabled: false
+  scrollable: true
+  limit: 3
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I am a **plastic and reconstructive surgeon** and **burn intensivist** at [Linkou Chang Gung Memorial Hospital](https://cgmhburncenter.org), and a Ph.D. candidate in Biomedical Informatics at [National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/).
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+My clinical practice spans acute and reconstructive **burn care**, **rhinoplasty**, **craniofacial surgery**, and **microsurgery**. Alongside the operating room, I build **clinically grounded AI** — translating problems I meet at the bedside into models that are actually usable: burn wound segmentation and TBSA estimation, inhalation-injury risk prediction, craniofacial / orthognathic image analysis, and quantitative rhinoplasty planning.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+I lead the **VDI Lab @ CGMH Burn Center** — a joint effort between the Linkou Chang Gung Burn Center, NYCU, and Chang Gung University — where we develop vision, language, and multimodal models for burn and reconstructive care. You can explore the lab and its live AI demos on the <a href='https://lab.cjhuang.com' target='_blank'>lab site</a>.
