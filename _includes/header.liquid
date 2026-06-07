@@ -117,11 +117,17 @@
               {% endif %}
             {% endif %}
           {% endfor %}
-          {% if site.data.socials.email %}
-            <!-- Email (Tabler icon, consistent with search/theme) -->
+          {% if site.scholar_userid %}
+            <!-- Google Scholar -->
             <li class="nav-item">
-              <a class="nav-link" href="mailto:{{ site.data.socials.email }}" title="Email">
-                <i class="ti ti-mail"></i>
+              <a
+                class="nav-link"
+                href="https://scholar.google.com/citations?user={{ site.scholar_userid }}"
+                title="Google Scholar"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="ai ai-google-scholar"></i>
               </a>
             </li>
           {% endif %}
