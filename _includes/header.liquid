@@ -117,10 +117,14 @@
               {% endif %}
             {% endif %}
           {% endfor %}
-          <!-- Social icons (CV / email / GitHub / Scholar) -->
-          <li class="nav-item social-nav">
-            <span class="contact-icons nav-social-icons">{% social_links %}</span>
-          </li>
+          {% if site.data.socials.email %}
+            <!-- Email (Tabler icon, consistent with search/theme) -->
+            <li class="nav-item">
+              <a class="nav-link" href="mailto:{{ site.data.socials.email }}" title="Email">
+                <i class="ti ti-mail"></i>
+              </a>
+            </li>
+          {% endif %}
           {% if site.search_enabled %}
             <!-- Search -->
             <li class="nav-item">
