@@ -41,3 +41,27 @@ $max-content-width: {{ site.max_width }};
 .nav-social-icons a:hover {
   color: var(--global-theme-color);
 }
+
+/* Custom: comfortable reading spacing for blog post body */
+.post-content {
+  p {
+    margin-bottom: 1.25rem;   /* 段落間留白 */
+    line-height: 1.85;        /* 行高放鬆 */
+  }
+  ul,
+  ol {
+    margin-bottom: 1.25rem;
+    li {
+      margin-bottom: 0.4rem;
+      line-height: 1.8;
+    }
+  }
+  h2 {
+    margin-top: 2.6rem;       /* 大標前多留白，段落群分隔更清楚 */
+    margin-bottom: 1rem;
+  }
+  h3 {
+    margin-top: 1.8rem;
+    margin-bottom: 0.6rem;
+  }
+}
