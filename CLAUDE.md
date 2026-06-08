@@ -13,21 +13,25 @@
 
 ## 導覽列
 
-about · publications · research · cases · teaching · cv · blog · **lab↗**（外連 lab.cjhuang.com）
+**about · research · activities · cases · blog · cv↗ · lab↗**
 + 右側 **Google Scholar icon**（academicons `ai-google-scholar`，`scholar_userid` 在 `_config.yml`）
+
+- `cv↗` = 外連 LinkedIn（`linkedin.com/in/cjronald/`，**不放攤開的 CV 網頁** — user 嫌裸露+跟 LinkedIn 重複）。`_data/cv.yml` 留著當備份不顯示
+- `lab↗` = 外連 lab.cjhuang.com
+- **publications 移出 nav**（頁面 `/publications/` 仍在、學術引用 URL 保留），改嵌進 research 頁底（selected papers）+ research 頁「See all publications →」連入
 
 ## 內容編輯對照
 
 | 內容 | 檔案 |
 |------|------|
 | bio / 首頁 | `_pages/about.md`（含 about 頁底 Contact email 區塊）|
-| 論文 | `_bibliography/papers.bib`（`selected={true}` → 上首頁）|
-| research + AI demo | `_pages/projects.md`（permalink `/research/`）|
-| cases 臨床案例 | `_projects/case_*.md`（before/after slider，front matter `images: {compare,slider}`）|
-| teaching | `_pages/teaching.md`（素材取自 Medical_Career，單向，非反向 SSOT）|
-| CV | `_data/cv.yml`（**不是** resume.json — 見下方坑）|
+| 論文 | `_bibliography/papers.bib`（`selected={true}` → 首頁 + research 頁底）|
+| research | `_pages/projects.md`（permalink `/research/`）：**Clinical Research / AI & Computational 兩大類** + AI demo + 嵌 selected publications |
+| activities | `_pages/teaching.md`（permalink `/activities/`）：International/Domestic Conference · Oversea Exchange · Service（審稿期刊，不列論文題目）。素材取自 Medical_Career 單向 |
+| cases 臨床案例 | `_projects/case_*.md`（before/after slider，front matter `images: {compare,slider}`；目前 placeholder）|
+| 衛教文 | `_posts/*.md` category `patient-education`（中文，整合進 blog 不另開 nav，讀者用分類篩）|
 | news timeline | `_news/*.md` |
-| blog | `_posts/*.md`（blog_name="Notes"，tag/category 導覽開）|
+| blog | `_posts/*.md`（blog_name="Notes"，tag/category 導覽開）。⚠️ post 日期勿設未來時間，否則 Jekyll 跳過不 build |
 
 ## 聯絡 / 帳號
 
@@ -55,10 +59,15 @@ bundle exec jekyll build                # 產出 _site/
 5. **footer 重複 copyright** → footer.liquid 改成只用 `footer_text`。
 6. 移除 al-folio 開發用 workflows（codeql/lighthouse/prettier 等），只留 `deploy.yml`。
 
+## 樣式備註
+
+- footer **白底**（`_themes.scss` light mode `--global-footer-bg-color` 改 white）
+- blog post 內文加閱讀間距（`main.scss` `.post-content` p line-height 1.85 + margin）
+
 ## 待補
 
 - ORCID（`_data/socials.yml`）
-- CV PDF (`assets/pdf/cv.pdf`)（有 `Medical_Career/cv/CJHuang_CV_2026-05.pdf` 待放，但含個資需確認）
-- 真臨床案例照（目前 cases 是 1 張 placeholder）
+- 真臨床案例照（cases 目前是 placeholder；放 public repo = 永久公開，需同意書涵蓋網路公開永久 + 去識別）
+- 眼袋衛教文解剖示意圖（`eye-bags.png` 待確認版權來源）
 - blog 真文校稿（"From benchmark to bedside" 為草稿）
 - lab.cjhuang.com 站內容升級（接 ResearchTools demos / 補 publications）
