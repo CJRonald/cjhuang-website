@@ -4,24 +4,39 @@ title: research
 permalink: /research/
 description: Clinically grounded AI for burn care, craniofacial and reconstructive surgery.
 nav: true
-nav_order: 3
+nav_order: 2
 ---
 
 My research sits at the intersection of **plastic & reconstructive surgery** and **applied AI**. Most projects start from a problem I meet in the burn unit or operating room, and aim for tools that are genuinely usable in clinical workflow rather than benchmark-only models.
 
-## Research areas
+## Clinical Research
 
-**Burn care AI.**
-Automatic burn wound segmentation and total-body-surface-area (TBSA) estimation, inhalation-injury risk prediction, and large-scale clinical outcome modelling (transfusion, infection, length of stay) from the Chang Gung Research Database (CGRD).
-
-**Craniofacial & orthognathic imaging.**
-Deep-learning landmark detection and segmentation on CBCT and 3D photogrammetry for orthognathic surgery planning, including Bad Split risk prediction — with a focus on the systematic errors that off-the-shelf Western models make on Asian Class III anatomy.
+Clinical-question-driven studies grounded in real practice and large-scale hospital data.
 
 **Quantitative rhinoplasty.**
-Photogrammetric, 3D-based frameworks for measuring and predicting nasal tip projection, rotation and stability after cartilage grafting.
+Photogrammetric, 3D-based frameworks for measuring and predicting nasal tip projection, rotation, and stability after cartilage grafting.
+
+**Burn outcomes from the Chang Gung Research Database (CGRD).**
+Large-scale clinical outcome studies — transfusion, infection and antimicrobial resistance, and length of stay — across decades of burn admissions.
+
+**Craniofacial & orthognathic measurement.**
+3D photogrammetry and CBCT-based assessment for orthognathic surgery planning, including Bad Split risk.
+
+## AI & Computational
+
+Deep-learning, computer-vision, and language methods built from the bedside outward.
+
+**Burn wound segmentation & TBSA estimation.**
+Automatic segmentation and total-body-surface-area estimation from clinical photographs.
+
+**Inhalation-injury prediction.**
+Machine-learning and multimodal models for early risk stratification of inhalation injury.
+
+**Craniofacial deep learning.**
+Landmark detection and segmentation on CBCT and 3D imaging — with a focus on the systematic errors that off-the-shelf Western models make on Asian Class III anatomy.
 
 **Multimodal clinical AI.**
-Vision–language and NLP methods for extracting structure from clinical narratives, imaging and structured records.
+Vision–language and NLP methods for extracting structure from clinical narratives, imaging, and structured records.
 
 ---
 
@@ -36,3 +51,13 @@ Live, interactive demos of tools coming out of the lab — hosted on Hugging Fac
 ---
 
 For the lab, team, and complete project list, visit <a href="https://lab.cjhuang.com" target="_blank">lab.cjhuang.com →</a>
+
+---
+
+## Selected publications
+
+<div class="publications">
+{% bibliography --group_by none --query @*[selected=true]* %}
+</div>
+
+<p><a href="{{ '/publications/' | relative_url }}">See all publications →</a></p>

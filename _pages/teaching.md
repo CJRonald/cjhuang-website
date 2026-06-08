@@ -1,36 +1,34 @@
 ---
 layout: page
-title: teaching
-permalink: /teaching/
-description: Invited talks, research mentorship, and clinical & AI teaching.
+title: activities
+permalink: /activities/
+description: International conferences, invited talks, research mentorship, and academic exchange.
 nav: true
-nav_order: 5
+nav_order: 3
 ---
 
-## Invited talks & presentations
+## International Conference
 
 - **AI Application in Burn and Microsurgery** — Invited Speaker, *PRS Korea 2025*, Seoul (Nov 2025). Inhalation-injury prediction, burn segmentation, 3D TBSA, and flap monitoring.
-- **Combined Septal Extension & Derotation Grafts in Asian Rhinoplasty** — Free Paper, *PRS Korea 2025*, Seoul (Nov 2025); also presented at the *Taiwan Surgical Association* (2023).
-- **Facelift (Cadaver Course)** — invited lecture (2026).
-- **Chronic Wound Care** — invited lecture, Taipei (2025).
+- **Combined Septal Extension & Derotation Grafts in Asian Rhinoplasty** — Free Paper, *PRS Korea 2025*, Seoul (Nov 2025). N=324, comparison of three techniques.
+- **Multimodal Deep Learning with Feature-level Fusion for Inhalation Injury Severity Prediction in Burn Patients** — Poster, *American Burn Association (ABA) Annual Meeting 2026*, Orlando, FL (Apr 2026).
 
-## Research mentorship
+## Domestic Conference
 
-I supervise residents and junior colleagues on clinical research, from question to manuscript.
+- **Combined SEG + DG in Asian Rhinoplasty** — Oral, *Taiwan Surgical Association* (2023).
+- *Taiwan Society for Surgery of the Hand (TSSH)* (2025).
 
-- **A Decade of Burn Wound Microbiology and Antimicrobial Resistance at a High-Volume Burn Center (2015–2025)** — mentoring a senior resident as first author (I serve as corresponding author, IRB PI, and mentor).
+## Oversea Exchange
 
-## Clinical teaching
+- **Observership**, *NYU Langone Health*, Hansjörg Wyss Department of Plastic Surgery, New York, USA (2023).
+- **Observership (Plastic Surgery)**, *Singapore General Hospital*, Singapore (2014).
+- **Observership (Internal Medicine)**, *Juntendo University Hospital*, Tokyo, Japan (2014).
 
-- Resident training and medical-student clinical teaching at Chang Gung Memorial Hospital (Linkou & Tucheng).
-- Burn critical-care decision-making, acute burn management, wound care, and reconstructive planning in departmental conferences.
-- Hands-on teaching in head & neck microsurgical reconstruction and post-trauma hand reconstruction.
+## Service
 
-## AI teaching
+Peer reviewer for international journals, including:
 
-Bringing clinical AI into surgical education — what I build in the lab, taught at the bedside:
-
-- Computer vision for burn wound recognition and assessment.
-- From clinical data to model training: a practical workflow for clinicians.
-- Computational analysis for facial / craniofacial reconstruction.
-- Integrating the burn center's case database and AI research into resident teaching.
+- *BMC Surgery*
+- *European Journal of Orthodontics*
+- *Journal of Robotic Surgery* (Springer Nature)
+- *Maxillofacial Plastic and Reconstructive Surgery* (Springer Nature)

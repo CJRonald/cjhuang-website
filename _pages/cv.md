@@ -1,10 +1,7 @@
 ---
-layout: cv
-permalink: /cv/
-title: cv
+layout: page
+title: cv ↗
+permalink: https://www.linkedin.com/in/cjronald/
 nav: true
 nav_order: 6
-description: Curriculum vitae of Ronald Chih-Jung Huang, M.D.
-toc:
-  sidebar: left
 ---
