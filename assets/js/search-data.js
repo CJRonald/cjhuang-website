@@ -62,7 +62,7 @@ ninja.data = [{
         
           title: "認識眼袋與下眼瞼整形",
         
-        description: "眼袋成因、治療選擇與術後照護 —— 民眾衛教（草稿，內容待補）。",
+        description: "眼袋與中臉老化的解剖機轉、手術技巧，以及結構式眼袋手術的設計理念。",
         section: "Posts",
         handler: () => {
           
