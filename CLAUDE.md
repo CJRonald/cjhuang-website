@@ -28,8 +28,8 @@
 |------|------|
 | bio / 首頁 | `_pages/about.md`（bio + news + about 頁底 Contact email；`selected_papers: false`=論文不在首頁，在 research 頁）|
 | 論文 | `_bibliography/papers.bib`（`selected={true}` → research 頁底顯示）|
-| research | `_pages/projects.md`（`/research/`）：**Clinical Research / AI & Computational 兩大類** + AI demo + 嵌 selected publications |
-| **services（臨床服務概述）** | `_pages/services.md`（`/services/`，`display_title: Clinical Services`）：引言 + Burn&reconstruction / Aesthetic&functional 專長清單 + 頁底連 cases/blog |
+| research | `_pages/projects.md`（`/research/`，`display_title: Academic Research`）：**Clinical Research / AI & Computational 兩大類** + AI demo + 嵌 selected publications |
+| **services（臨床服務概述）** | `_pages/services.md`（`/services/`，`display_title: Clinical Services`）：引言 + **4 分類段落式**（Rhinoplasty & Nasal / Burn & Wound / Aesthetic / Reconstructive & Microsurgery）+ 分隔線 + **Experience**（現職 + residency；土城用正式名 **New Taipei Municipal TuCheng Hospital**）+ 頁底連 cases/blog |
 | activities | `_pages/teaching.md`（`/activities/`）：引言段 + **年份·會議名** 時序排（International/Domestic Conference）+ Oversea Exchange + Service（審稿期刊不列論文題目）。素材取自 Medical_Career 單向 |
 | cases 臨床案例 | `_projects/case_*.md`（before/after slider；目前 placeholder）|
 | 衛教文 | `_posts/*.md` category `patient-education`（中文，整合進 blog）|
