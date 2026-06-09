@@ -131,6 +131,20 @@
               </a>
             </li>
           {% endif %}
+          {% if site.linkedin_username %}
+            <!-- LinkedIn -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://www.linkedin.com/in/{{ site.linkedin_username }}/"
+                title="LinkedIn"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="ti ti-brand-linkedin"></i>
+              </a>
+            </li>
+          {% endif %}
           {% if site.search_enabled %}
             <!-- Search -->
             <li class="nav-item">
