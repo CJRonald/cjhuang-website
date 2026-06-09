@@ -16,40 +16,19 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/research/";
           },
+        },{id: "nav-services",
+          title: "services",
+          description: "Clinical services in plastic, reconstructive, burn, and aesthetic surgery.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/services/";
+          },
         },{id: "nav-activities",
           title: "activities",
           description: "International conferences, invited talks, research mentorship, and academic exchange.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/activities/";
-          },
-        },{id: "nav-cases",
-          title: "cases",
-          description: "Selected clinical cases. All photographs are published with patient consent for online use.",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/cases/";
-          },
-        },{id: "nav-blog",
-          title: "blog",
-          description: "",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/blog/";
-          },
-        },{id: "nav-cv",
-          title: "cv ↗",
-          description: "",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/https:/www.linkedin.com/in/cjronald/";
-          },
-        },{id: "nav-lab",
-          title: "lab ↗",
-          description: "",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/https:/lab.cjhuang.com";
           },
         },{id: "post-認識眼袋與下眼瞼整形",
         
@@ -84,17 +63,14 @@ ninja.data = [{
             window.location.href = "/blog/2026/benchmark-to-bedside/";
           
         },
-      },{id: "news-started-my-ph-d-in-biomedical-informatics-at-national-yang-ming-chiao-tung-university-nycu-focusing-on-multimodal-ai-for-burn-and-reconstructive-care",
-          title: 'Started my Ph.D. in Biomedical Informatics at National Yang Ming Chiao Tung University...',
+      },{id: "news-our-paper-triangular-fossa-cartilage-graft-in-rhinoplasty-a-3d-anatomical-and-technical-feasibility-study-was-accepted-by-plastic-and-reconstructive-surgery-prs",
+          title: 'Our paper Triangular Fossa Cartilage Graft in Rhinoplasty: A 3D Anatomical and Technical...',
           description: "",
           section: "News",},{id: "news-our-paper-on-combined-septal-extension-amp-amp-derotation-grafts-in-asian-rhinoplasty-324-cases-was-accepted-by-aesthetic-surgery-journal-a-quantitative-analysis-of-tip-projection-and-stability",
           title: 'Our paper on combined septal extension &amp;amp;amp; derotation grafts in Asian rhinoplasty (324...',
           description: "",
           section: "News",},{id: "news-promoted-to-assistant-professor-at-chang-gung-memorial-hospital",
           title: 'Promoted to Assistant Professor at Chang Gung Memorial Hospital. 🎓',
-          description: "",
-          section: "News",},{id: "news-two-burn-care-ai-demos-are-now-live-on-hugging-face-spaces-burn-wound-segmentation-unet-iou-0-85-and-flap-perfusion-prediction-try-them-on-the-lab-site",
-          title: 'Two burn-care AI demos are now live on Hugging Face Spaces — burn...',
           description: "",
           section: "News",},{id: "projects-asian-rhinoplasty-septal-extension-amp-derotation-graft",
           title: 'Asian Rhinoplasty — Septal Extension &amp;amp; Derotation Graft',
