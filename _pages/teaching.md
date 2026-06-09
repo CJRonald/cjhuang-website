@@ -9,6 +9,16 @@ nav_order: 4
 
 I share my work and stay connected with the field through international and domestic conferences, observerships abroad, and peer review for surgical and craniofacial journals — bringing clinical AI to a wider surgical audience and learning from colleagues across institutions.
 
+## Board Certifications
+
+Board-certified in **Plastic & Reconstructive Surgery** (2023), **Critical Care Medicine** (2025), **Hand Surgery** (2022), and **Aesthetic Surgery** (2024) by the respective Taiwan specialty societies.
+
+## Professional Societies
+
+Taiwan Surgical Association · Taiwan Society of Plastic Surgery · Taiwan Society for Surgery of the Hand · Taiwan Society of Aesthetic Plastic Surgery · Taiwan Society of Reconstructive Microsurgery · Taiwan Society of Burn Injuries and Wound Healing
+
+---
+
 ## International Conference
 
 **2026 · American Burn Association (ABA) Annual Meeting**, Orlando, FL.
@@ -35,6 +45,8 @@ Observership in Plastic Surgery, Singapore (2014).
 
 **Juntendo University Hospital.**
 Observership in Internal Medicine, Tokyo, Japan (2014).
+
+---
 
 ## Service
 

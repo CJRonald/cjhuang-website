@@ -92,3 +92,15 @@ $max-content-width: {{ site.max_width }};
     img { height: 40px; }
   }
 }
+
+/* Custom: more breathing room between section groups (hr separators) on content pages */
+.post article hr {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: 0;
+  border-top: 1px solid var(--global-divider-color);
+}
+/* first h2 right after an hr shouldn't double up the top gap */
+.post article hr + h2 {
+  margin-top: 1.5rem;
+}
