@@ -13,25 +13,28 @@
 
 ## 導覽列
 
-**about · research · activities · cases · blog · cv↗ · lab↗**
-+ 右側 **Google Scholar icon**（academicons `ai-google-scholar`，`scholar_userid` 在 `_config.yml`）
+文字 nav：**about · research · services · activities**
+右側 icon：**Google Scholar**（academicons `ai-google-scholar`，`scholar_userid`）+ **LinkedIn**（Tabler `ti-brand-linkedin`，`linkedin_username` 在 `_config.yml`）+ search + 主題切換
 
-- `cv↗` = 外連 LinkedIn（`linkedin.com/in/cjronald/`，**不放攤開的 CV 網頁** — user 嫌裸露+跟 LinkedIn 重複）。`_data/cv.yml` 留著當備份不顯示
-- `lab↗` = 外連 lab.cjhuang.com
-- **publications 移出 nav**（頁面 `/publications/` 仍在、學術引用 URL 保留），改嵌進 research 頁底（selected papers）+ research 頁「See all publications →」連入
+- **CV → LinkedIn icon**（不放攤開的 CV 網頁 — user 嫌裸露+跟 LinkedIn 重複；`_data/cv.yml` 留備份不顯示，`_pages/cv.md` 已刪）
+- **lab 移出 nav**（lab.cjhuang.com 站仍在，about 頁內文有連結）
+- **cases / blog 移出 nav**，從 services 頁底連入（`/cases/` `/blog/` 頁面仍在）
+- **publications 移出 nav**（頁面 `/publications/` 保留學術引用 URL），嵌進 research 頁底（selected papers）+ 「See all publications →」連入
+- **頁面大標 vs nav 標籤可分離**：`page.liquid` 支援 `display_title` override（如 services 的 nav 顯示 "services"、頁面大標 "Clinical Services"）
 
 ## 內容編輯對照
 
 | 內容 | 檔案 |
 |------|------|
-| bio / 首頁 | `_pages/about.md`（含 about 頁底 Contact email 區塊）|
-| 論文 | `_bibliography/papers.bib`（`selected={true}` → 首頁 + research 頁底）|
-| research | `_pages/projects.md`（permalink `/research/`）：**Clinical Research / AI & Computational 兩大類** + AI demo + 嵌 selected publications |
-| activities | `_pages/teaching.md`（permalink `/activities/`）：International/Domestic Conference · Oversea Exchange · Service（審稿期刊，不列論文題目）。素材取自 Medical_Career 單向 |
-| cases 臨床案例 | `_projects/case_*.md`（before/after slider，front matter `images: {compare,slider}`；目前 placeholder）|
-| 衛教文 | `_posts/*.md` category `patient-education`（中文，整合進 blog 不另開 nav，讀者用分類篩）|
-| news timeline | `_news/*.md` |
-| blog | `_posts/*.md`（blog_name="Notes"，tag/category 導覽開）。⚠️ post 日期勿設未來時間，否則 Jekyll 跳過不 build |
+| bio / 首頁 | `_pages/about.md`（bio + news + about 頁底 Contact email；`selected_papers: false`=論文不在首頁，在 research 頁）|
+| 論文 | `_bibliography/papers.bib`（`selected={true}` → research 頁底顯示）|
+| research | `_pages/projects.md`（`/research/`）：**Clinical Research / AI & Computational 兩大類** + AI demo + 嵌 selected publications |
+| **services（臨床服務概述）** | `_pages/services.md`（`/services/`，`display_title: Clinical Services`）：引言 + Burn&reconstruction / Aesthetic&functional 專長清單 + 頁底連 cases/blog |
+| activities | `_pages/teaching.md`（`/activities/`）：引言段 + **年份·會議名** 時序排（International/Domestic Conference）+ Oversea Exchange + Service（審稿期刊不列論文題目）。素材取自 Medical_Career 單向 |
+| cases 臨床案例 | `_projects/case_*.md`（before/after slider；目前 placeholder）|
+| 衛教文 | `_posts/*.md` category `patient-education`（中文，整合進 blog）|
+| news timeline | `_news/*.md`（升等 / SEGDG ASJ / Triangular Fossa PRS）|
+| blog | `_posts/*.md`（blog_name="Notes"）。⚠️ post 日期勿設未來時間，否則 Jekyll 跳過不 build |
 
 ## 聯絡 / 帳號
 
