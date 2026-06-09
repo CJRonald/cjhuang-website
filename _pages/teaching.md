@@ -15,16 +15,16 @@ Board-certified in **Plastic & Reconstructive Surgery** (2023), **Critical Care 
 
 ## Professional Societies
 
-Taiwan Surgical Association · Taiwan Society of Plastic Surgery · Taiwan Society for Surgery of the Hand · Taiwan Society of Aesthetic Plastic Surgery · Taiwan Society of Reconstructive Microsurgery · Taiwan Society of Burn Injuries and Wound Healing
+[Taiwan Surgical Association](https://www.surgery.org.tw/){:target="_blank"} · [Taiwan Society of Plastic Surgery](https://www.prsa.org.tw/){:target="_blank"} · [Taiwan Society for Surgery of the Hand](https://handsurgery.com.tw/){:target="_blank"} · [Taiwan Society of Aesthetic Plastic Surgery](https://www.tsaps.org.tw/){:target="_blank"} · [Taiwan Society of Reconstructive Microsurgery](https://www.twsrm.org.tw/){:target="_blank"} · [Taiwan Society of Burn Injuries and Wound Healing](http://www.burn.org.tw/){:target="_blank"}
 
 ---
 
 ## International Conference
 
-**2026 · American Burn Association (ABA) Annual Meeting**, Orlando, FL.
+**2026 · [American Burn Association (ABA)](https://ameriburn.org/){:target="_blank"} Annual Meeting**, Orlando, FL.
 Poster — *Multimodal Deep Learning for Inhalation Injury Severity Prediction in Burn Patients.*
 
-**2025 · PRS Korea**, Seoul.
+**2025 · [PRS Korea](https://www.plasticsurgery.or.kr/eng/){:target="_blank"}**, Seoul.
 Invited Speaker — *AI Application in Burn and Microsurgery* (inhalation-injury prediction, burn segmentation, 3D TBSA, flap monitoring).
 Free Paper — *Combined Septal Extension & Derotation Grafts in Asian Rhinoplasty* (N=324, comparison of three techniques).
 
@@ -37,13 +37,13 @@ Oral — *Combined SEG + DG in Asian Rhinoplasty.*
 
 ## Oversea Exchange
 
-**NYU Langone Health.**
+**[NYU Langone Health](https://med.nyu.edu/departments-institutes/plastic-surgery/){:target="_blank"}.**
 Observership, Hansjörg Wyss Department of Plastic Surgery, New York, USA (2023).
 
-**Singapore General Hospital.**
+**[Singapore General Hospital](https://www.sgh.com.sg/){:target="_blank"}.**
 Observership in Plastic Surgery, Singapore (2014).
 
-**Juntendo University Hospital.**
+**[Juntendo University Hospital](https://en.juntendo.ac.jp/){:target="_blank"}.**
 Observership in Internal Medicine, Tokyo, Japan (2014).
 
 ---
