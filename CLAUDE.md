@@ -35,6 +35,7 @@
 | 衛教文 | `_posts/*.md` category `patient-education`（中文，整合進 blog）|
 | news timeline | `_news/*.md`（升等 / SEGDG ASJ / Triangular Fossa PRS）|
 | blog | `_posts/*.md`（blog_name="Notes"）。⚠️ post 日期勿設未來時間，否則 Jekyll 跳過不 build |
+| **機構 logo 牆**（about 頁底）| `_data/affiliations.yml`（每筆 name/logo/url/**height**）+ logo 檔放 `assets/img/logos/`。灰階+hover 變色。⚠️ **各 logo 長寬比不同→用 `height` 欄個別微調**（CGMH 帶文字版 24px / NYCU 52px）。logo 進 public repo=永久公開，但機構商標屬事實性隸屬展示風險低。⚠️ 不從官網拓 logo，由 user 提供（media kit/名片）|
 
 ## 聯絡 / 帳號
 
