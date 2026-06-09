@@ -1,6 +1,7 @@
 ---
 layout: page
 title: research
+display_title: Academic Research
 permalink: /research/
 description: Clinically grounded AI for burn care, craniofacial and reconstructive surgery.
 nav: true
