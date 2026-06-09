@@ -30,12 +30,12 @@
 | 論文 | `_bibliography/papers.bib`（`selected={true}` → research 頁底顯示）|
 | research | `_pages/projects.md`（`/research/`，`display_title: Academic Research`）：**Clinical Research / AI & Computational 兩大類** + AI demo + 嵌 selected publications |
 | **services（臨床服務概述）** | `_pages/services.md`（`/services/`，`display_title: Clinical Services`）：引言 + **4 分類段落式**（Rhinoplasty & Nasal / Burn & Wound / Aesthetic / Reconstructive & Microsurgery）+ 分隔線 + **Experience**（現職 + residency；土城用正式名 **New Taipei Municipal TuCheng Hospital**）+ 頁底連 cases/blog |
-| activities | `_pages/teaching.md`（`/activities/`）：引言段 + **年份·會議名** 時序排（International/Domestic Conference）+ Oversea Exchange + Service（審稿期刊不列論文題目）。素材取自 Medical_Career 單向 |
+| activities | `_pages/teaching.md`（`/activities/`）：引言段 + **三群 `---` 分隔**（hr margin 2rem，CSS `.post article hr`）：① **Board Certifications**（4 張篩檢版段落式，砍 General Surgery）+ **Professional Societies**（6 學會 · 分隔）② International/Domestic Conference + Oversea Exchange ③ Service（審稿期刊不列論文題目）。**全機構名加官網超連結**（6 學會 + ABA/PRS Korea KSPRS/NYU Wyss/SGH/Juntendo 英文站，`{:target="_blank"}` 開新分頁）。素材取自 Medical_Career 單向。⚠️ **國內 conference 仍只 2 筆**（Medical_Career 從未建檔，詳見 presentation_list.md 缺口註）|
 | cases 臨床案例 | `_projects/case_*.md`（before/after slider；目前 placeholder）|
 | 衛教文 | `_posts/*.md` category `patient-education`（中文，整合進 blog）|
 | news timeline | `_news/*.md`（升等 / SEGDG ASJ / Triangular Fossa PRS）|
 | blog | `_posts/*.md`（blog_name="Notes"）。⚠️ post 日期勿設未來時間，否則 Jekyll 跳過不 build |
-| **機構 logo 牆**（about 頁底）| `_data/affiliations.yml`（每筆 name/logo/url/**height**）+ logo 檔放 `assets/img/logos/`。灰階+hover 變色。⚠️ **各 logo 長寬比不同→用 `height` 欄個別微調**（CGMH 帶文字版 24px / NYCU 52px）。logo 進 public repo=永久公開，但機構商標屬事實性隸屬展示風險低。⚠️ 不從官網拓 logo，由 user 提供（media kit/名片）|
+| **機構 logo 牆**（about 頁底）| `_data/affiliations.yml`（每筆 name/logo/url/**height**）+ logo 檔放 `assets/img/logos/`（`cgmh.png` 24px + `nycu.png` 52px 實際使用；`cgmh-logo.svg` 向量原檔備用，未引用）。灰階+hover 變色。⚠️ **各 logo 長寬比不同→用 `height` 欄個別微調**。logo 進 public repo=永久公開，但機構商標屬事實性隸屬展示風險低。⚠️ 不從官網拓 logo，由 user 提供（media kit/名片）|
 
 ## 聯絡 / 帳號
 
