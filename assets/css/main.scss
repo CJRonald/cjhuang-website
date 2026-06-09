@@ -65,3 +65,30 @@ $max-content-width: {{ site.max_width }};
     margin-bottom: 0.6rem;
   }
 }
+
+/* Custom: affiliation logo wall on about page */
+.affiliation-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem 0 0.5rem;
+  img {
+    height: 52px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.7;
+    filter: grayscale(100%);
+    transition: opacity 0.2s ease, filter 0.2s ease;
+  }
+  img:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+}
+@media (max-width: 576px) {
+  .affiliation-logos {
+    gap: 1.25rem;
+    img { height: 40px; }
+  }
+}

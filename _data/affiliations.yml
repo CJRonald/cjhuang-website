@@ -1,0 +1,21 @@
+# Institution logos shown on the about page.
+# Add an entry per logo file in assets/img/logos/. Order = display order.
+# name = alt text / tooltip; logo = filename in assets/img/logos/; url = optional link.
+
+- name: Chang Gung Memorial Hospital
+  logo: cgmh.png
+  url: https://www.cgmh.org.tw/eng
+  height: 24px # flat logo (5.8:1) — tuned to match NYCU symbol size
+
+- name: National Yang Ming Chiao Tung University
+  logo: nycu.png
+  url: https://www.nycu.edu.tw/
+  height: 52px
+
+# Add more as logo files arrive, e.g.:
+# - name: NYU Langone Health
+#   logo: nyu-langone.png
+# - name: Singapore General Hospital
+#   logo: sgh.png
+# - name: Juntendo University
+#   logo: juntendo.png
