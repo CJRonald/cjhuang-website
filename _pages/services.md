@@ -10,6 +10,17 @@ nav_order: 3
 
 As a plastic and reconstructive surgeon and burn intensivist, I care for patients across the full range of acute, reconstructive, and aesthetic plastic surgery — from critical burn care to nasal reconstruction, microsurgery, and facial rejuvenation. My approach is grounded in careful anatomical assessment and individualized, structure-based planning.
 
+## Where I Practice
+
+I currently see patients at:
+
+- [**Linkou Chang Gung Memorial Hospital**](https://www.cgmh.org.tw/eng){:target="_blank"} — Department of Plastic & Reconstructive Surgery and [Burn Center](https://cgmhburncenter.org){:target="_blank"}, Taoyuan
+- [**New Taipei Municipal TuCheng Hospital**](https://www.cgmh.org.tw/tch){:target="_blank"} (Chang Gung Medical Foundation) — Division of Plastic Surgery, New Taipei City
+
+Outpatient appointments can be booked through [my physician page on the CGMH website](https://www.cgmh.org.tw/tw/Services/DoctorInfo/1666){:target="_blank"} (Chinese), which lists my current clinic schedule at both hospitals.
+
+---
+
 ## Rhinoplasty & Nasal Surgery
 
 Asian rhinoplasty (primary and revision), functional nasal surgery, and nasal reconstruction.
