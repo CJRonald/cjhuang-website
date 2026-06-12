@@ -27,8 +27,8 @@ Schedules may change — please check the [CGMH physician page](https://www.cgmh
 
 ## Specialties
 
-<div class="row mt-3">
-  <div class="col-md-6 mb-4">
+<div class="row row-cols-1 row-cols-md-2 mt-3">
+  <div class="col mb-4">
     <div class="card h-100">
       <div class="card-body">
         <h3 class="card-title h5">Rhinoplasty & Nasal Reconstruction</h3>
@@ -36,7 +36,7 @@ Schedules may change — please check the [CGMH physician page](https://www.cgmh
       </div>
     </div>
   </div>
-  <div class="col-md-6 mb-4">
+  <div class="col mb-4">
     <div class="card h-100">
       <div class="card-body">
         <h3 class="card-title h5">Burn & Wound Care</h3>
@@ -44,7 +44,7 @@ Schedules may change — please check the [CGMH physician page](https://www.cgmh
       </div>
     </div>
   </div>
-  <div class="col-md-6 mb-4">
+  <div class="col mb-4">
     <div class="card h-100">
       <div class="card-body">
         <h3 class="card-title h5">Aesthetic Surgery</h3>
@@ -52,7 +52,7 @@ Schedules may change — please check the [CGMH physician page](https://www.cgmh
       </div>
     </div>
   </div>
-  <div class="col-md-6 mb-4">
+  <div class="col mb-4">
     <div class="card h-100">
       <div class="card-body">
         <h3 class="card-title h5">Reconstructive Microsurgery</h3>
