@@ -5,6 +5,7 @@
 email: contact@cjhuang.com # your email address (Cloudflare Email Routing → Gmail)
 # cv_pdf: /assets/pdf/cv.pdf # CV page is in the navbar; icon hidden
 # github_username: CJRonald # hidden from header
-# scholar_userid: o5hHtnQAAAAJ # Google Scholar author ID — hidden from header (still set in _config for citation plugin if needed)
-# orcid_id: # TODO: add your ORCID iD (e.g. 0000-0000-0000-0000)
+scholar_userid: o5hHtnQAAAAJ # Google Scholar author ID (header icon comes from _config.yml; this feeds schema.org sameAs)
+linkedin_username: cjronald # LinkedIn (header icon comes from _config.yml; this feeds schema.org sameAs)
+orcid_id: 0009-0006-8111-5329 # ORCID iD (metadata/schema.org sameAs; header icons stay Scholar + LinkedIn)
 # rss_icon: false # commented out → RSS icon hidden
