@@ -41,6 +41,8 @@
 
 - email：`contact@cjhuang.com`（**Cloudflare Email Routing → isly29@gmail.com，已驗證可收**）；顯示於 about 頁底 Contact 區塊
 - Google Scholar：author ID `o5hHtnQAAAAJ`（header icon；引用數 badge 未啟用）
+- ORCID：`0009-0006-8111-5329`（6/12 加入 `_data/socials.yml`，不上 header icon）
+- **schema.org JSON-LD 已啟用**（6/12）：`serve_schema_org: true` → 每頁 head 輸出 Person + sameAs（Scholar/LinkedIn/ORCID）。⚠️ 坑：YAML `>` 折疊字串尾帶 newline 會讓 JSON-LD invalid，`metadata.liquid` description/headline 已改 `jsonify` 處理
 
 ## 命名 / 架構決策（路線 C）
 
@@ -70,7 +72,6 @@ bundle exec jekyll build                # 產出 _site/
 
 ## 待補
 
-- ORCID（`_data/socials.yml`）
 - 真臨床案例照（cases 目前是 placeholder；放 public repo = 永久公開，需同意書涵蓋網路公開永久 + 去識別）
 - 眼袋衛教文解剖示意圖（`eye-bags.png` 待確認版權來源）
 - blog 真文校稿（"From benchmark to bedside" 為草稿）
