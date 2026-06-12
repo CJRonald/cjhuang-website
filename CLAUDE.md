@@ -29,11 +29,11 @@
 | bio / 首頁 | `_pages/about.md`（bio + news + about 頁底 Contact email；`selected_papers: false`=論文不在首頁，在 research 頁）|
 | 論文 | `_bibliography/papers.bib`（`selected={true}` → research 頁底顯示）|
 | research | `_pages/projects.md`（`/research/`，`display_title: Academic Research`）：**Clinical Research / AI & Computational 兩大類** + AI demo + 嵌 selected publications |
-| **services（臨床服務概述）** | `_pages/services.md`（`/services/`，`display_title: Clinical Services`）：引言 + **Where I Practice**（林口 CGMH + 土城兩院連官網；掛號句直連長庚醫師頁 `DoctorInfo/1666`；土城子網域已失效，用 `cgmh.org.tw/tch`）+ 分隔線 + **4 分類段落式**（Rhinoplasty & Nasal / Burn & Wound / Aesthetic / Reconstructive & Microsurgery）+ 分隔線 + **Experience**（現職 + residency；土城用正式名 **New Taipei Municipal TuCheng Hospital**）+ 頁底連 cases/blog。⚠️ 連結內粗體要顯示連結色靠 `_base.scss` 的 `a strong/a em { color: inherit }` |
+| **services（臨床服務概述）** | `_pages/services.md`（`/services/`，`display_title: Clinical Services`）：引言 + **Where I Practice**（林口 CGMH + 土城兩院連官網；掛號句直連長庚醫師頁 `DoctorInfo/1666`；土城子網域已失效用 `cgmh.org.tw/tch`、科別為 **Department** of Plastic Surgery）+ 嵌 **clinic-hours.png**（門診時刻表，`figure.liquid` class `img-fluid rounded` **無 z-depth 陰影**）+ 分隔線 + **Specialties**（h2 主標 + 4 張 card：Rhinoplasty & Nasal Reconstruction / Burn & Wound Care / Aesthetic Surgery / Reconstructive Microsurgery）+ 分隔線 + **Experience**（現職 + residency；土城用正式名 **New Taipei Municipal TuCheng Hospital**）+ 頁底連 cases/blog。⚠️ **card grid 用 `row-cols-1 row-cols-md-2` + `.col`**（抄 cases/blog 頁；al-folio 此版 `col-md-6` 自製寫法線上不並排）。⚠️ 連結內粗體要顯示連結色靠 `_base.scss` 的 `a strong/a em { color: inherit }` |
 | activities | `_pages/teaching.md`（`/activities/`）：引言段 + **三群 `---` 分隔**（hr margin 2rem，CSS `.post article hr`）：① **Board Certifications**（4 張篩檢版段落式，砍 General Surgery）+ **Professional Societies**（6 學會 · 分隔）② International/Domestic Conference + Oversea Exchange ③ Service（審稿期刊不列論文題目）。**全機構名加官網超連結**（6 學會 + ABA/PRS Korea KSPRS/NYU Wyss/SGH/Juntendo 英文站，`{:target="_blank"}` 開新分頁）。素材取自 Medical_Career 單向。⚠️ **國內 conference 仍只 2 筆**（Medical_Career 從未建檔，詳見 presentation_list.md 缺口註）|
 | cases 臨床案例 | `_projects/case_*.md`（before/after slider；目前 placeholder）|
 | 衛教文 | `_posts/*.md` category `patient-education`（中文，整合進 blog）|
-| news timeline | `_news/*.md`（升等 / SEGDG ASJ / Triangular Fossa PRS）|
+| news timeline | `_news/*.md`（升等 / SEGDG ASJ / Triangular Fossa PRS / ABA 2026 poster）。論文 news 加 DOI 連結：ASJ 連 `10.1093/asj/sjag079`、ABA 連 ameriburn.org。⚠️ **PRS Triangular Fossa 連結待補**（DOI 未指派，不湊假連結）|
 | blog | `_posts/*.md`（blog_name="Notes"）。⚠️ post 日期勿設未來時間，否則 Jekyll 跳過不 build |
 | **機構 logo 牆**（about 頁底）| `_data/affiliations.yml`（每筆 name/logo/url/**height**）+ logo 檔放 `assets/img/logos/`（`cgmh.png` 24px + `nycu.png` 52px 實際使用；`cgmh-logo.svg` 向量原檔備用，未引用）。灰階+hover 變色。⚠️ **各 logo 長寬比不同→用 `height` 欄個別微調**。logo 進 public repo=永久公開，但機構商標屬事實性隸屬展示風險低。⚠️ 不從官網拓 logo，由 user 提供（media kit/名片）|
 
@@ -72,6 +72,7 @@ bundle exec jekyll build                # 產出 _site/
 
 ## 待補
 
+- PRS Triangular Fossa news 連結（等正式 DOI 指派後補進 `_news/announcement_1.md`）
 - 真臨床案例照（cases 目前是 placeholder；放 public repo = 永久公開，需同意書涵蓋網路公開永久 + 去識別）
 - 眼袋衛教文解剖示意圖（`eye-bags.png` 待確認版權來源）
 - blog 真文校稿（"From benchmark to bedside" 為草稿）
