@@ -69,6 +69,9 @@ ninja.data = [{
           section: "News",},{id: "news-our-paper-on-combined-septal-extension-amp-amp-derotation-grafts-in-asian-rhinoplasty-324-cases-was-accepted-by-aesthetic-surgery-journal-a-quantitative-analysis-of-tip-projection-and-stability",
           title: 'Our paper on combined septal extension &amp;amp;amp; derotation grafts in Asian rhinoplasty (324...',
           description: "",
+          section: "News",},{id: "news-presented-a-poster-multimodal-deep-learning-with-feature-level-fusion-for-inhalation-injury-severity-prediction-in-burn-patients-at-the-american-burn-association-aba-annual-meeting-in-orlando-florida",
+          title: 'Presented a poster, Multimodal Deep Learning with Feature-level Fusion for Inhalation Injury Severity...',
+          description: "",
           section: "News",},{id: "news-promoted-to-assistant-professor-at-chang-gung-memorial-hospital",
           title: 'Promoted to Assistant Professor at Chang Gung Memorial Hospital. 🎓',
           description: "",
@@ -83,6 +86,27 @@ ninja.data = [{
         section: 'Socials',
         handler: () => {
           window.open("mailto:%63%6F%6E%74%61%63%74@%63%6A%68%75%61%6E%67.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=o5hHtnQAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/cjronald", "_blank");
+        },
+      },{
+        id: 'social-orcid',
+        title: 'ORCID',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://orcid.org/0009-0006-8111-5329", "_blank");
         },
       },{
       id: 'light-theme',
