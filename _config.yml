@@ -457,6 +457,8 @@ third_party_libraries:
   google_fonts:
     url:
       fonts: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&display=swap"
+      # Noto Sans TC: CJK glyphs for zh-Hant patient-education posts (main.scss :lang(zh-Hant) patch)
+      fonts_cjk: "https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
   highlightjs:
     integrity:
       css:

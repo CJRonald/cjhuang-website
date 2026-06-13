@@ -93,6 +93,50 @@ $max-content-width: {{ site.max_width }};
   }
 }
 
+/* Custom: Traditional-Chinese reading patch
+   al-folio ships Latin-only fonts (Roboto) + Latin-tuned line-height + italic.
+   Scope strictly to zh-Hant pages via :lang() so English pages are untouched.
+   Requires <html lang="zh-Hant"> (driven by page.lang front matter in default.liquid). */
+:lang(zh-Hant) {
+  /* Noto Sans TC first for CJK glyphs; Roboto kept ahead for Latin digits/words,
+     system PingFang TC / Microsoft JhengHei as offline fallback. */
+  --cjhuang-cjk-font: "Roboto", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei",
+    "Heiti TC", sans-serif;
+}
+.post-content:lang(zh-Hant),
+article:lang(zh-Hant) {
+  font-family: var(--cjhuang-cjk-font);
+
+  p,
+  li {
+    /* CJK comfortable reading needs taller leading than Latin */
+    line-height: 2;
+    /* gentle spacing between CJK chars and adjacent Latin/numerals */
+    text-spacing-trim: space-all;
+    letter-spacing: 0.01em;
+  }
+
+  /* CJK has no true italic glyphs; the browser fakes an oblique slant that looks
+     broken. Render emphasis upright + bold instead. */
+  em,
+  i {
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* tighten heading leading (2 is too loose for short heading lines) */
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+  }
+}
+
+/* Note: Noto Sans TC is loaded via _config.yml google_fonts URL (head), not @import,
+   so it fetches in parallel with the rest of head instead of blocking CSS parse. */
+
 /* Custom: more breathing room between section groups (hr separators) on content pages */
 .post article hr {
   margin-top: 2rem;

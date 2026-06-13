@@ -30,6 +30,14 @@
   type="text/css"
   href="{{ site.third_party_libraries.google_fonts.url.fonts }}"
 >
+{% if site.third_party_libraries.google_fonts.url.fonts_cjk %}
+<link
+  defer
+  rel="stylesheet"
+  type="text/css"
+  href="{{ site.third_party_libraries.google_fonts.url.fonts_cjk }}"
+>
+{% endif %}
 
 <!-- Code Syntax Highlighting -->
 <link
