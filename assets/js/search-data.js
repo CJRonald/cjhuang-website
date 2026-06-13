@@ -52,28 +52,6 @@ ninja.data = [{
             window.location.href = "/blog/2026/eyebag/";
           
         },
-      },{id: "post-hello",
-        
-          title: "Hello",
-        
-        description: "A first note on this site and what I plan to write here.",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2026/hello/";
-          
-        },
-      },{id: "post-from-benchmark-to-bedside",
-        
-          title: "From benchmark to bedside",
-        
-        description: "Why a high IoU isn&#39;t the same as a useful tool — notes from building burn-care AI.",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2026/benchmark-to-bedside/";
-          
-        },
       },{id: "news-our-paper-triangular-fossa-cartilage-graft-in-rhinoplasty-a-3d-anatomical-and-technical-feasibility-study-was-accepted-by-plastic-and-reconstructive-surgery-prs",
           title: 'Our paper Triangular Fossa Cartilage Graft in Rhinoplasty: A 3D Anatomical and Technical...',
           description: "",
