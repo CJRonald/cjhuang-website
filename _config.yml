@@ -94,8 +94,8 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: Notes # blog_name will be displayed in your blog page
-blog_description: thoughts on clinical AI, surgery, and research
+blog_name: # removed — blog page starts directly with the tag/category filter row
+blog_description: # removed — page is patient-education focused
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 
@@ -267,8 +267,8 @@ jekyll-archives:
     enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
 
 # Tags / categories shown at the top of the blog page. Add new ones here as you write posts.
-display_tags: ["clinical-ai", "burn", "meta", "oculoplastic", "rhinoplasty"]
-display_categories: ["notes", "patient-education"]
+display_tags: ["lower-blepharoplasty", "rhinoplasty"]
+display_categories: ["patient-education"]
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar
