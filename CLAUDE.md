@@ -79,5 +79,5 @@ bundle exec jekyll build                # 產出 _site/
 
 - PRS Triangular Fossa news 連結（等正式 DOI 指派後補進 `_news/announcement_1.md`）
 - 真臨床案例照（cases 目前是 placeholder；放 public repo = 永久公開，需同意書涵蓋網路公開永久 + 去識別）
-- 眼袋衛教文解剖示意圖（`eye-bags.png` 待確認版權來源）
+- ~~眼袋衛教文解剖示意圖~~ ✅ 已加 `assets/img/eye-bags-anatomy.jpg`（Gemini AI 生成矢狀切面，無版權疑慮；嵌在五大機轉段前，`col-md-7`/`col-9` 約 58%/75% 寬，zoomable + 中文圖說）
 - lab.cjhuang.com 站內容升級（接 ResearchTools demos / 補 publications）
