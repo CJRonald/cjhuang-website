@@ -4,8 +4,13 @@ layout: default
 <div class="post">
   <header class="post-header">
     {% if page.type == 'categories' %}
-      <h1 class="post-title"><i class="fa-solid fa-tag fa-sm"></i> {{ page.title }}</h1>
-      <p class="post-description">an archive of {{ page.collection_name }} in this category</p>
+      {% if page.title == 'patient-education' %}
+        <h1 class="post-title" lang="zh-Hant"><i class="fa-solid fa-tag fa-sm"></i> 病患衛教</h1>
+        <p class="post-description" lang="zh-Hant">整形、重建與燒傷照護的衛教文章</p>
+      {% else %}
+        <h1 class="post-title"><i class="fa-solid fa-tag fa-sm"></i> {{ page.title }}</h1>
+        <p class="post-description">an archive of {{ page.collection_name }} in this category</p>
+      {% endif %}
     {% elsif page.type == 'year' %}
       <h1 class="post-title"><i class="fa-solid fa-calendar fa-sm"></i> {{ page.date | date: '%Y' }}</h1>
       <p class="post-description">an archive of {{ page.collection_name }} from this year</p>
