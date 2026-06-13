@@ -69,6 +69,11 @@ bundle exec jekyll build                # 產出 _site/
 
 - footer **白底**（`_themes.scss` light mode `--global-footer-bg-color` 改 white）
 - blog post 內文加閱讀間距（`main.scss` `.post-content` p line-height 1.85 + margin）
+- **繁中文章 CSS 補丁（6/13）**：al-folio 原生只載 Latin 字型（Roboto）+ Latin 行高 + 真斜體，中文文章閱讀體驗差。補丁 4 處，全 scope 在 `:lang(zh-Hant)`，英文頁零影響：
+  1. `_layouts/default.liquid`：`<html lang>` 由寫死 `site.lang` 改 `{{ page.lang | default: site.lang }}` → 文章 front matter 的 `lang: zh-Hant` 才真正輸出（同利 SEO/a11y）。**寫中文衛教文必加 `lang: zh-Hant`**，補丁才命中
+  2. `main.scss` `:lang(zh-Hant)`：CJK 字型 stack（Roboto 拉丁字優先 + Noto Sans TC + PingFang/JhengHei fallback）、行高 2.0、**`em`/`i` 改正體 600 字重**（中文無真斜體，瀏覽器假斜很醜）、標題行高/字距微調
+  3. `_config.yml` google_fonts 加 `fonts_cjk`（Noto Sans TC URL）
+  4. `_includes/head.liquid`：條件注入 `fonts_cjk` link
 
 ## 待補
 
