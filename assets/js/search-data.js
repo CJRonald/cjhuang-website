@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/activities/";
           },
-        },{id: "post-認識眼袋與下眼瞼整形",
+        },{id: "post-認識鼻整形-東方鼻的美學-術式與選擇",
+        
+          title: "認識鼻整形：東方鼻的美學、術式與選擇",
+        
+        description: "從東方鼻的解剖特性、理想鼻形比例，到隆鼻材料與術式選擇、術後照護的完整入門指南。",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/rhinoplasty-basics/";
+          
+        },
+      },{id: "post-認識眼袋與下眼瞼整形",
         
           title: "認識眼袋與下眼瞼整形",
         
