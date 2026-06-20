@@ -15,7 +15,7 @@ footer_text: >
   &copy; 2026 Ronald Chih-Jung Huang &middot; VDI Lab @ CGMH Burn Center
 keywords: Chih-Jung Huang, Ronald Huang, plastic surgery, burn, AI, rhinoplasty, craniofacial, CGMH, VDI Lab
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: 🔬 # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
+icon: favicon.ico # VDI Lab hexnode favicon (file in /assets/img/); head.liquid emits SVG + png fallbacks too
 
 url: https://cjhuang.com # the base hostname & protocol for your site
 scholar_userid: o5hHtnQAAAAJ # Google Scholar author ID (used by header Scholar icon)
