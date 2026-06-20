@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none">
+  <!-- favicon-optimized: bolder strokes, dropped faint guide lines, hexagon outline + 6 nodes + center eye -->
+  <!-- hexagon outline (now solid, was opacity 0.25) -->
+  <path d="M100 28 L162 64 L162 136 L100 172 L38 136 L38 64 Z" stroke="#0B2545" stroke-width="7" stroke-linejoin="round" fill="none"></path>
+  <!-- connecting edges (bolder, blue/teal alternating) -->
+  <line x1="100" y1="28" x2="162" y2="136" stroke="#0B2545" stroke-width="6"></line>
+  <line x1="162" y1="136" x2="38" y2="136" stroke="#0B2545" stroke-width="6"></line>
+  <line x1="38" y1="136" x2="100" y2="28" stroke="#0B2545" stroke-width="6"></line>
+  <line x1="162" y1="64" x2="100" y2="172" stroke="#00A39A" stroke-width="6"></line>
+  <line x1="100" y1="172" x2="38" y2="64" stroke="#00A39A" stroke-width="6"></line>
+  <line x1="38" y1="64" x2="162" y2="64" stroke="#00A39A" stroke-width="6"></line>
+  <!-- 6 vertex nodes (bigger, blue/teal alternating) -->
+  <circle cx="100" cy="28" r="11" fill="#0B2545"></circle>
+  <circle cx="162" cy="64" r="11" fill="#00A39A"></circle>
+  <circle cx="162" cy="136" r="11" fill="#0B2545"></circle>
+  <circle cx="100" cy="172" r="11" fill="#00A39A"></circle>
+  <circle cx="38" cy="136" r="11" fill="#0B2545"></circle>
+  <circle cx="38" cy="64" r="11" fill="#00A39A"></circle>
+  <!-- center eye node (Visual-Driven) -->
+  <circle cx="100" cy="100" r="18" fill="#FAFAF7" stroke="#0B2545" stroke-width="6"></circle>
+  <circle cx="100" cy="100" r="7" fill="#0B2545"></circle>
+</svg>
