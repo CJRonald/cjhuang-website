@@ -12,10 +12,6 @@
   url: https://www.nycu.edu.tw/
   height: 52px
 
-# Add more as logo files arrive, e.g.:
-# - name: NYU Langone Health
-#   logo: nyu-langone.png
-# - name: Singapore General Hospital
-#   logo: sgh.png
-# - name: Juntendo University
-#   logo: juntendo.png
+# Logo wall is intentionally kept to CGMH + NYCU only (user decision 2026-06-20).
+# Other institutions (TMU/CGU/NYU/SGH/Juntendo) were considered but deemed
+# unsuitable for the wall — do not add without explicit request.
