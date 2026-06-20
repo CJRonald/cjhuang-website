@@ -52,7 +52,7 @@ ninja.data = [{
             window.location.href = "/blog/2026/eyebag/";
           
         },
-      },{id: "news-our-paper-triangular-fossa-cartilage-graft-in-rhinoplasty-a-3d-anatomical-and-technical-feasibility-study-was-accepted-by-plastic-and-reconstructive-surgery-prs",
+      },{id: "news-our-paper-triangular-fossa-cartilage-graft-in-rhinoplasty-a-3d-anatomical-and-technical-feasibility-study-was-accepted-by-plastic-and-reconstructive-surgery-a-three-dimensional-anatomical-study-validating-the-auricular-triangular-fossa-as-a-donor-site-for-structural-grafting",
           title: 'Our paper Triangular Fossa Cartilage Graft in Rhinoplasty: A 3D Anatomical and Technical...',
           description: "",
           section: "News",},{id: "news-our-paper-on-combined-septal-extension-amp-amp-derotation-grafts-in-asian-rhinoplasty-324-cases-was-accepted-by-aesthetic-surgery-journal-a-quantitative-analysis-of-tip-projection-and-stability",

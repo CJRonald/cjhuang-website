@@ -33,7 +33,7 @@
 | activities | `_pages/teaching.md`（`/activities/`）：引言段 + **三群 `---` 分隔**（hr margin 2rem，CSS `.post article hr`）：① **Board Certifications**（4 張篩檢版段落式，砍 General Surgery）+ **Professional Societies**（6 學會 · 分隔）② International/Domestic Conference + Oversea Exchange ③ Service（審稿期刊不列論文題目）。**全機構名加官網超連結**（6 學會 + ABA/PRS Korea KSPRS/NYU Wyss/SGH/Juntendo 英文站，`{:target="_blank"}` 開新分頁）。素材取自 Medical_Career 單向。⚠️ **國內 conference 仍只 2 筆**（Medical_Career 從未建檔，詳見 presentation_list.md 缺口註）|
 | cases 臨床案例 | `_projects/case_*.md`（before/after slider；目前 placeholder）|
 | 衛教文 | `_posts/*.md` category `patient-education`（中文衛教，必加 front matter `lang: zh-Hant`）。現有 2 篇：眼袋（tag `lower-blepharoplasty`）、鼻整形（tag `rhinoplasty`）。⚠️ **tag 勿含空格**（jekyll-archives 會拆成兩個壞掉的 archive）→ 用 slug 式 tag id，需漂亮顯示在 `archive.liquid` 加 display mapping（見 `lower-blepharoplasty`→"Lower Blepharoplasty" / category `patient-education`→「病患衛教」）|
-| news timeline | `_news/*.md`（升等 / SEGDG ASJ / Triangular Fossa PRS / ABA 2026 poster）。論文 news 加 DOI 連結：ASJ 連 `10.1093/asj/sjag079`、ABA 連 ameriburn.org。⚠️ **PRS Triangular Fossa 連結待補**（DOI 未指派，不湊假連結）|
+| news timeline | `_news/*.md`（升等 / SEGDG ASJ / Triangular Fossa PRS / ABA 2026 poster）。論文 news 加 DOI 連結：ASJ 連 `10.1093/asj/sjag079`、**PRS Triangular Fossa 連 `10.1097/PRS.0000000000012647`**（6/20 論文正式線上刊登 PMID 41335126 後補上）、ABA 連 ameriburn.org |
 | blog | `/blog/`（`_pages/blog.md`，nav:false，從 about portal + services 頁底連入）。**6/13 收斂成衛教 hub**：`blog_name`/`blog_description` 清空 → 頁面無大標、直接從 tag/category 篩選排開始；刪 al-folio 起手草稿（hello / benchmark-to-bedside）。⚠️ post 日期勿設未來時間，否則 Jekyll 跳過不 build |
 | **機構 logo 牆**（about 頁底）| `_data/affiliations.yml`（每筆 name/logo/url/**height**）+ logo 檔放 `assets/img/logos/`（`cgmh.png` 24px + `nycu.png` 52px 實際使用；`cgmh-logo.svg` 向量原檔備用，未引用）。灰階+hover 變色。⚠️ **各 logo 長寬比不同→用 `height` 欄個別微調**。logo 進 public repo=永久公開，但機構商標屬事實性隸屬展示風險低。⚠️ 不從官網拓 logo，由 user 提供（media kit/名片）|
 
@@ -77,7 +77,7 @@ bundle exec jekyll build                # 產出 _site/
 
 ## 待補
 
-- PRS Triangular Fossa news 連結（等正式 DOI 指派後補進 `_news/announcement_1.md`）
+- ~~PRS Triangular Fossa news 連結~~ ✅ 6/20 已補（DOI `10.1097/PRS.0000000000012647`，論文線上刊登）
 - 真臨床案例照（cases 目前是 placeholder；放 public repo = 永久公開，需同意書涵蓋網路公開永久 + 去識別）
 - ~~眼袋衛教文解剖示意圖~~ ✅ 已加 `assets/img/eye-bags-anatomy.jpg`（Gemini AI 生成矢狀切面，無版權疑慮；嵌在五大機轉段前，`col-md-7`/`col-9` 約 58%/75% 寬，zoomable + 中文圖說）
 - lab.cjhuang.com 站內容升級（接 ResearchTools demos / 補 publications）
