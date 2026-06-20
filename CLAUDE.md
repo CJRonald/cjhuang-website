@@ -10,6 +10,7 @@
 - repo `CJRonald/cjhuang-website`，**GitHub Actions（`deploy.yml`）build → `gh-pages` 分支**
 - Cloudflare DNS：apex `cjhuang.com` → GitHub Pages 4 個 A record（185.199.108-111.153），Proxied，SSL **Full**
 - 深藍主題 `#2c5aa0`（`_sass/_variables.scss` 的 `$purple-color`，對齊燒傷中心官網）
+- **Favicon = VDI 六角 logo**（6/20，與 lab.cjhuang.com 統一）：al-folio 原用 emoji（`_config.yml` `icon: 🔬`）→ 改 `icon: favicon.ico`，並把 `_includes/head.liquid` 的 `elsif site.icon != blank` 分支擴成多尺寸（SVG 主 + 16/32 png + ico + apple-touch-icon）。favicon 5 檔在 `assets/img/`（SSOT 在 [VDILab/brand/](../VDILab/brand/)，此為複製副本）。⚠️ 改 favicon 改 brand source 再重生複製，勿單獨改這邊
 
 ## 導覽列
 
