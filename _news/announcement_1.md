@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Our paper **Triangular Fossa Cartilage Graft in Rhinoplasty: A 3D Anatomical and Technical Feasibility Study** was accepted by *Plastic and Reconstructive Surgery (PRS)*.
+Our paper **Triangular Fossa Cartilage Graft in Rhinoplasty: A 3D Anatomical and Technical Feasibility Study** was accepted by [*Plastic and Reconstructive Surgery*](https://doi.org/10.1097/PRS.0000000000012647){:target="_blank"} — a three-dimensional anatomical study validating the auricular triangular fossa as a donor site for structural grafting.
