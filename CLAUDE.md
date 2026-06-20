@@ -77,7 +77,12 @@ bundle exec jekyll build                # 產出 _site/
 
 ## 待補
 
-- ~~PRS Triangular Fossa news 連結~~ ✅ 6/20 已補（DOI `10.1097/PRS.0000000000012647`，論文線上刊登）
 - 真臨床案例照（cases 目前是 placeholder；放 public repo = 永久公開，需同意書涵蓋網路公開永久 + 去識別）
-- ~~眼袋衛教文解剖示意圖~~ ✅ 已加 `assets/img/eye-bags-anatomy.jpg`（Gemini AI 生成矢狀切面，無版權疑慮；嵌在五大機轉段前，`col-md-7`/`col-9` 約 58%/75% 寬，zoomable + 中文圖說）
 - lab.cjhuang.com 站內容升級（接 ResearchTools demos / 補 publications）
+
+**已完成 / 已決定不做**（從待補移除）：
+- ✅ PRS Triangular Fossa news 連結（6/20，DOI `10.1097/PRS.0000000000012647`）
+- ✅ 眼袋衛教文解剖示意圖（`assets/img/eye-bags-anatomy.jpg`，Gemini AI 生成）
+- ✅ ORCID（6/12，`_data/socials.yml`）
+- ❌ 國內 conference 補全 — **user 6/20 決定不補**（資料缺口不影響站定位）
+- ❌ 其他機構 logo（TMU/CGU/NYU/SGH/Juntendo）— **user 6/20 決定不加**（都不適合放上去）；about logo 牆維持 CGMH + NYCU 兩個
