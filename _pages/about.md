@@ -30,7 +30,7 @@ I am a **plastic and reconstructive surgeon** and **burn intensivist** at [Linko
 
 My clinical practice spans acute and reconstructive **burn care**, **rhinoplasty**, **craniofacial surgery**, and **microsurgery**. Alongside the operating room, I build **clinically grounded AI** — translating problems I meet at the bedside into models that are actually usable: burn wound segmentation and TBSA estimation, inhalation-injury risk prediction, craniofacial / orthognathic image analysis, and quantitative rhinoplasty planning.
 
-I lead the **VDI Lab @ CGMH Burn Center** — a joint effort between the [Linkou Chang Gung Burn Center](https://cgmhburncenter.org){:target="_blank"}, NYCU, and Chang Gung University — where we develop vision, language, and multimodal models for burn and reconstructive care. You can explore the lab and its live AI demos on the <a href='https://lab.cjhuang.com' target='_blank'>lab site</a>.
+I lead the **VDI Lab @ CGMH Burn Center** — a joint effort between the [Linkou Chang Gung Burn Center](https://cgmhburncenter.org){:target="_blank"}, NYCU, and Chang Gung University — where we develop vision, language, and multimodal models for burn and reconstructive care. You can explore the lab and its live AI demos on the <a href='https://lab.cjhuang.com/index-en.html' target='_blank'>lab site</a>.
 
 {% if site.data.affiliations %}
 <div class="affiliation-logos">

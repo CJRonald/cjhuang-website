@@ -43,7 +43,7 @@ Vision–language and NLP methods for extracting structure from clinical narrati
 
 ## AI demos
 
-Live, interactive demos of tools coming out of the lab — hosted on Hugging Face Spaces. The full collection lives on the <a href="https://lab.cjhuang.com" target="_blank">VDI Lab site</a>.
+Live, interactive demos of tools coming out of the lab — hosted on Hugging Face Spaces. The full collection lives on the <a href="https://lab.cjhuang.com/index-en.html" target="_blank">VDI Lab site</a>.
 
 - **Burn wound segmentation** — Deep Supervision UNet++ (IoU 0.85) → [demo](https://huggingface.co/spaces/CJRonald/burn-segmentation-demo){:target="_blank"}
 - **Flap perfusion prediction** — temperature + color features → [demo](https://huggingface.co/spaces/CJRonald/flap-prediction-demo){:target="_blank"}
@@ -51,7 +51,7 @@ Live, interactive demos of tools coming out of the lab — hosted on Hugging Fac
 
 ---
 
-For the lab, team, and complete project list, visit <a href="https://lab.cjhuang.com" target="_blank">lab.cjhuang.com →</a>
+For the lab, team, and complete project list, visit <a href="https://lab.cjhuang.com/index-en.html" target="_blank">lab.cjhuang.com →</a>
 
 ---
 
