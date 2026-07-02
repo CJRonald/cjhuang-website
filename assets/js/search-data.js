@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/activities/";
           },
-        },{id: "post-認識鼻整形-東方鼻的美學-術式與選擇",
+        },{id: "post-認識自體脂肪移植-從淚溝到全臉年輕化",
+        
+          title: "認識自體脂肪移植：從淚溝到全臉年輕化",
+        
+        description: "自體脂肪移植的科學原理、存活與吸收機制、提高存活率的技術，以及從淚溝、中臉到全臉的立體年輕化設計理念。",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/fat-grafting/";
+          
+        },
+      },{id: "post-認識鼻整形-東方鼻的美學-術式與選擇",
         
           title: "認識鼻整形：東方鼻的美學、術式與選擇",
         
