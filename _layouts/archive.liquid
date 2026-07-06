@@ -17,6 +17,10 @@ layout: default
     {% elsif page.type == 'tags' %}
       {% if page.title == 'lower-blepharoplasty' %}
         {% assign tag_display = 'Lower Blepharoplasty' %}
+      {% elsif page.title == 'rhinoplasty' %}
+        {% assign tag_display = 'Rhinoplasty' %}
+      {% elsif page.title == 'fat-grafting' %}
+        {% assign tag_display = 'Fat Grafting' %}
       {% else %}
         {% assign tag_display = page.title %}
       {% endif %}
