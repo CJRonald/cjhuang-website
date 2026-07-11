@@ -19,7 +19,7 @@
 
 - **CV → LinkedIn icon**（不放攤開的 CV 網頁 — user 嫌裸露+跟 LinkedIn 重複；`_data/cv.yml` 留備份不顯示，`_pages/cv.md` 已刪）
 - **lab 移出 nav**（lab.cjhuang.com 站仍在，about 頁內文有連結）
-- **cases / blog 移出 nav**，從 services 頁底連入（`/cases/` `/blog/` 頁面仍在）
+- **blog 移出 nav**，從 services 頁底 + about portal 連入；**cases 整頁已下架**（7/11 `published: false` ×2 檔 + services 連結移除 — placeholder 假案例曾雙入口可達；真實案例 ready 再還原）
 - **publications 移出 nav**（頁面 `/publications/` 保留學術引用 URL），嵌進 research 頁底（selected papers）+ 「See all publications →」連入
 - **頁面大標 vs nav 標籤可分離**：`page.liquid` 支援 `display_title` override（如 services 的 nav 顯示 "services"、頁面大標 "Clinical Services"）
 
@@ -30,9 +30,9 @@
 | bio / 首頁 | `_pages/about.md`（bio + news + about 頁底 Contact email；`selected_papers: false`=論文不在首頁，在 research 頁）。**病患衛教入口（6/13）**：`_layouts/about.liquid` 在 contact 區塊前加純繁中 portal 段（「給病友的話」+ 連 **`/blog/category/patient-education/`** 病患衛教分類頁，非 `/blog/` 全文 hub），導引台灣患者進中文衛教分類頁（blog 不在 nav）。⚠️ 此段在 **layout** 非 about.md 內文（about.liquid 渲染序 = 內文→news→**portal**→contact，要真正貼 contact 前只能放 layout）；用 `<div lang="zh-Hant">` 包裹讓 `:lang` 補丁套中文字型 |
 | 論文 | `_bibliography/papers.bib`（`selected={true}` → research 頁底顯示）|
 | research | `_pages/projects.md`（`/research/`，`display_title: Academic Research`）：**Clinical Research / AI & Computational 兩大類** + AI demo + 嵌 selected publications |
-| **services（臨床服務概述）** | `_pages/services.md`（`/services/`，`display_title: Clinical Services`）：引言 + **Where I Practice**（林口 CGMH + 土城兩院連官網；掛號句直連長庚醫師頁 `DoctorInfo/1666`；土城子網域已失效用 `cgmh.org.tw/tch`、科別為 **Department** of Plastic Surgery）+ 嵌 **clinic-hours.png**（門診時刻表，`figure.liquid` class `img-fluid rounded` **無 z-depth 陰影**）+ 分隔線 + **Specialties**（h2 主標 + 4 張 card：Rhinoplasty & Nasal Reconstruction / Burn & Wound Care / Aesthetic Surgery / Reconstructive Microsurgery）+ 分隔線 + **Experience**（現職 + residency；土城用正式名 **New Taipei Municipal TuCheng Hospital**）+ 頁底連 cases/blog。⚠️ **card grid 用 `row-cols-1 row-cols-md-2` + `.col`**（抄 cases/blog 頁；al-folio 此版 `col-md-6` 自製寫法線上不並排）。⚠️ 連結內粗體要顯示連結色靠 `_base.scss` 的 `a strong/a em { color: inherit }` |
+| **services（臨床服務概述）** | `_pages/services.md`（`/services/`，`display_title: Clinical Services`）：引言 + **Where I Practice**（林口 CGMH + 土城兩院連官網；掛號句直連長庚醫師頁 `DoctorInfo/1666`；土城子網域已失效用 `cgmh.org.tw/tch`、科別為 **Department** of Plastic Surgery）+ 嵌 **clinic-hours.png**（門診時刻表，`figure.liquid` class `img-fluid rounded` **無 z-depth 陰影**）+ 分隔線 + **Specialties**（h2 主標 + 4 張 card：Rhinoplasty & Nasal Reconstruction / Burn & Wound Care / Aesthetic Surgery / Reconstructive Microsurgery）+ 分隔線 + **Experience**（現職 + residency；土城用正式名 **New Taipei Municipal TuCheng Hospital**）+ 頁底連 blog（cases 連結 7/11 已隨下架移除）。⚠️ **card grid 用 `row-cols-1 row-cols-md-2` + `.col`**（抄 cases/blog 頁；al-folio 此版 `col-md-6` 自製寫法線上不並排）。⚠️ 連結內粗體要顯示連結色靠 `_base.scss` 的 `a strong/a em { color: inherit }` |
 | activities | `_pages/teaching.md`（`/activities/`）：引言段 + **三群 `---` 分隔**（hr margin 2rem，CSS `.post article hr`）：① **Board Certifications**（4 張篩檢版段落式，砍 General Surgery）+ **Professional Societies**（6 學會 · 分隔）② International/Domestic Conference + Oversea Exchange ③ Service（審稿期刊不列論文題目）。**全機構名加官網超連結**（6 學會 + ABA/PRS Korea KSPRS/NYU Wyss/SGH/Juntendo 英文站，`{:target="_blank"}` 開新分頁）。素材取自 Medical_Career 單向。⚠️ **國內 conference 仍只 2 筆**（Medical_Career 從未建檔，詳見 presentation_list.md 缺口註）|
-| cases 臨床案例 | `_projects/case_*.md`（before/after slider；目前 placeholder）|
+| cases 臨床案例 | `_projects/case_*.md`（before/after slider）— **7/11 起 unpublished**：`_pages/cases.md` + `case_01_rhinoplasty.md` 皆 `published: false`（placeholder 勿曝光；連 `/projects/case_01_rhinoplasty/` 詳細頁也會生成，兩處都要關）|
 | 衛教文 | `_posts/*.md` category `patient-education`（中文衛教，必加 front matter `lang: zh-Hant`）。現有 3 篇：眼袋（tag `lower-blepharoplasty`）、鼻整形（tag `rhinoplasty`）、**脂肪移植（tag `fat-grafting`，7/1，核心論點=脂肪是年輕化「輔助」非主力療法）**。⚠️ **tag 勿含空格**（jekyll-archives 會拆成兩個壞掉的 archive）→ 用 slug 式 tag id，需在 `_config.yml` `display_tags` 加 + `archive.liquid` 加 display mapping（現有 `lower-blepharoplasty`→"Lower Blepharoplasty" / `rhinoplasty`→"Rhinoplasty" / `fat-grafting`→"Fat Grafting" / category `patient-education`→「病患衛教」）。眼袋文與脂肪文互 link。⚠️ **衛教文 = 概念/期待管理，不寫手術操作細節（CC 數/麻醉/術後照護）= 個別諮詢範疇** |
 | news timeline | `_news/*.md`（升等 / SEGDG ASJ / Triangular Fossa PRS / ABA 2026 poster）。論文 news 加 DOI 連結：ASJ 連 `10.1093/asj/sjag079`、**PRS Triangular Fossa 連 `10.1097/PRS.0000000000012647`**（6/20 論文正式線上刊登 PMID 41335126 後補上）、ABA 連 ameriburn.org |
 | blog | `/blog/`（`_pages/blog.md`，nav:false，從 about portal + services 頁底連入）。**6/13 收斂成衛教 hub**：`blog_name`/`blog_description` 清空 → 頁面無大標、直接從 tag/category 篩選排開始；刪 al-folio 起手草稿（hello / benchmark-to-bedside）。⚠️ post 日期勿設未來時間，否則 Jekyll 跳過不 build |
@@ -78,7 +78,7 @@ bundle exec jekyll build                # 產出 _site/
 
 ## 待補
 
-- 真臨床案例照（cases 目前是 placeholder；放 public repo = 永久公開，需同意書涵蓋網路公開永久 + 去識別）
+- 真臨床案例照（cases 頁 7/11 已整頁下架；放 public repo = 永久公開，需同意書涵蓋網路公開永久 + 去識別；上架 = 拿掉兩檔 `published: false` + services 頁補回連結）
 - lab.cjhuang.com 站內容升級（接 ResearchTools demos / 補 publications）
 
 **已完成 / 已決定不做**（從待補移除）：
