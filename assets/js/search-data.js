@@ -75,12 +75,7 @@ ninja.data = [{
           section: "News",},{id: "news-promoted-to-assistant-professor-at-chang-gung-memorial-hospital",
           title: 'Promoted to Assistant Professor at Chang Gung Memorial Hospital. 🎓',
           description: "",
-          section: "News",},{id: "projects-asian-rhinoplasty-septal-extension-amp-derotation-graft",
-          title: 'Asian Rhinoplasty — Septal Extension &amp;amp; Derotation Graft',
-          description: "Tip projection and rotation correction (sample case — replace with your own)",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/case_01_rhinoplasty/";
-            },},{
+          section: "News",},{
         id: 'social-email',
         title: 'email',
         section: 'Socials',
