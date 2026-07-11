@@ -74,4 +74,4 @@ Schedules may change — please check the [CGMH physician page](https://www.cgmh
 
 ---
 
-See selected before-and-after results on the <a href="{{ '/cases/' | relative_url }}">cases page →</a>, or read patient-education articles on the <a href="{{ '/blog/' | relative_url }}">blog →</a>.
+Read patient-education articles on the <a href="{{ '/blog/' | relative_url }}">blog →</a>.

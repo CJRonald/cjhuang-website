@@ -8,6 +8,7 @@ category: rhinoplasty
 images:
   compare: true
   slider: true
+published: false
 ---
 
 > **Sample case page.** Replace the text and images below with a real consented case.

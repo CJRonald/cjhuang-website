@@ -5,6 +5,7 @@ permalink: /cases/
 description: Selected clinical cases. All photographs are published with patient consent for online use.
 nav: false
 nav_order: 4
+published: false
 display_categories: [rhinoplasty, burn reconstruction, craniofacial]
 horizontal: false
 ---
