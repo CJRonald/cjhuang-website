@@ -25,12 +25,23 @@ ninja.data = [{
           },
         },{id: "nav-activities",
           title: "activities",
-          description: "International conferences, invited talks, research mentorship, and academic exchange.",
+          description: "Awards, international conferences, invited talks, research mentorship, and academic exchange.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/activities/";
           },
-        },{id: "post-認識自體脂肪移植-從淚溝到全臉年輕化",
+        },{id: "post-眼袋手術後的恢復-時間表-正常與不正常",
+        
+          title: "眼袋手術後的恢復：時間表、正常與不正常",
+        
+        description: "眼袋手術後每個階段會發生什麼、腫脹與瘀青為什麼這樣變化、哪些狀況只需要等待、哪些必須立刻回診，以及最終結果什麼時候才算數。",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/eyebag-recovery/";
+          
+        },
+      },{id: "post-認識自體脂肪移植-從淚溝到全臉年輕化",
         
           title: "認識自體脂肪移植：從淚溝到全臉年輕化",
         
@@ -74,6 +85,9 @@ ninja.data = [{
           description: "",
           section: "News",},{id: "news-promoted-to-assistant-professor-at-chang-gung-memorial-hospital",
           title: 'Promoted to Assistant Professor at Chang Gung Memorial Hospital. 🎓',
+          description: "",
+          section: "News",},{id: "news-received-an-honorable-mention-in-the-2nd-tsaps-superb-paper-award-from-the-taiwan-society-of-aesthetic-plastic-surgery-for-our-study-on-the-triangular-fossa-cartilage-graft-in-rhinoplasty",
+          title: 'Received an Honorable Mention in the 2nd TSAPS Superb Paper Award from the...',
           description: "",
           section: "News",},{
         id: 'social-email',
