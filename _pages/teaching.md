@@ -2,7 +2,7 @@
 layout: page
 title: activities
 permalink: /activities/
-description: International conferences, invited talks, research mentorship, and academic exchange.
+description: Awards, international conferences, invited talks, research mentorship, and academic exchange.
 nav: true
 nav_order: 4
 ---
@@ -18,6 +18,17 @@ Board-certified in **Plastic & Reconstructive Surgery** (2023), **Critical Care 
 [Taiwan Surgical Association](https://www.surgery.org.tw/){:target="_blank"} · [Taiwan Society of Plastic Surgery](https://www.prsa.org.tw/){:target="_blank"} · [Taiwan Society for Surgery of the Hand](https://handsurgery.com.tw/){:target="_blank"} · [Taiwan Society of Aesthetic Plastic Surgery](https://www.tsaps.org.tw/){:target="_blank"} · [Taiwan Society of Reconstructive Microsurgery](https://www.twsrm.org.tw/){:target="_blank"} · [Taiwan Society of Burn Injuries and Wound Healing](http://www.burn.org.tw/){:target="_blank"}
 
 ---
+
+## Oversea Exchange
+
+**[NYU Langone Health](https://med.nyu.edu/departments-institutes/plastic-surgery/){:target="_blank"}.**
+Observership, Hansjörg Wyss Department of Plastic Surgery, New York, USA (2023).
+
+**[Singapore General Hospital](https://www.sgh.com.sg/){:target="_blank"}.**
+Observership in Plastic Surgery, Singapore (2014).
+
+**[Juntendo University Hospital](https://en.juntendo.ac.jp/){:target="_blank"}.**
+Observership in Internal Medicine, Tokyo, Japan (2014).
 
 ## International Conference
 
@@ -35,16 +46,12 @@ Free Paper — *Combined Septal Extension & Derotation Grafts in Asian Rhinoplas
 **2023 · Taiwan Surgical Association.**
 Oral — *Combined SEG + DG in Asian Rhinoplasty.*
 
-## Oversea Exchange
+---
 
-**[NYU Langone Health](https://med.nyu.edu/departments-institutes/plastic-surgery/){:target="_blank"}.**
-Observership, Hansjörg Wyss Department of Plastic Surgery, New York, USA (2023).
+## Awards
 
-**[Singapore General Hospital](https://www.sgh.com.sg/){:target="_blank"}.**
-Observership in Plastic Surgery, Singapore (2014).
-
-**[Juntendo University Hospital](https://en.juntendo.ac.jp/){:target="_blank"}.**
-Observership in Internal Medicine, Tokyo, Japan (2014).
+**2026 · [Taiwan Society of Aesthetic Plastic Surgery (TSAPS)](https://www.tsaps.org.tw/){:target="_blank"} — 2nd Superb Paper Award, Honorable Mention.**
+For *Triangular Fossa Cartilage Graft in Rhinoplasty: A Three-Dimensional Anatomical and Technical Feasibility Study* ([*Plastic and Reconstructive Surgery*](https://doi.org/10.1097/PRS.0000000000012647){:target="_blank"}).
 
 ---
 
