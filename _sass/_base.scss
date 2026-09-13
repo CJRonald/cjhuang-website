@@ -1532,3 +1532,34 @@ figure.cover {
 mjx-container[jax="CHTML"][display="true"] {
   overflow-x: auto;
 }
+
+// Contact channels (about page): email / LINE listed as peer entries,
+// each an icon + link line followed by an indented muted note.
+.contact-channel {
+  margin-bottom: 0.4rem;
+
+  // captions are optional; when present the entry needs more breathing room
+  &:has(.contact-channel-note) {
+    margin-bottom: 1rem;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .contact-channel-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+
+    svg {
+      flex-shrink: 0;
+      opacity: 0.55;
+    }
+  }
+
+  // align the note with the link text, not the icon
+  .contact-channel-note {
+    padding-left: 1.6rem;
+  }
+}

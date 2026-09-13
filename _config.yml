@@ -6,8 +6,13 @@ title: blank # the website title (if blank, full name will be used instead)
 first_name: Ronald
 middle_name: Chih-Jung
 last_name: Huang
-contact_note: >
-  Email is the best way to reach me.
+# leave blank to show the address alone, without a caption
+contact_note:
+# LINE official account (patient-facing; shown in the about page contact block)
+line_url: https://lin.ee/85RhQOR
+line_label: LINE 官方帳號
+# leave blank to show the link alone, without a caption
+line_note:
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   Plastic & reconstructive surgeon and burn intensivist at Chang Gung Memorial Hospital,
   building clinically grounded AI for burn care, craniofacial and rhinoplasty research.
