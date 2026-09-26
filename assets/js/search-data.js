@@ -89,6 +89,9 @@ ninja.data = [{
           section: "News",},{id: "news-received-an-honorable-mention-in-the-2nd-tsaps-superb-paper-award-from-the-taiwan-society-of-aesthetic-plastic-surgery-for-our-study-on-the-triangular-fossa-cartilage-graft-in-rhinoplasty",
           title: 'Received an Honorable Mention in the 2nd TSAPS Superb Paper Award from the...',
           description: "",
+          section: "News",},{id: "news-co-investigator-on-a-newly-funded-national-science-and-technology-council-nstc-project-developing-ai-based-prediction-of-bad-split-complications-in-orthognathic-surgery-2026-2027",
+          title: 'Co-investigator on a newly funded National Science and Technology Council (NSTC) project developing...',
+          description: "",
           section: "News",},{
         id: 'social-email',
         title: 'email',
