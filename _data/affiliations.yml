@@ -12,6 +12,11 @@
   url: https://www.nycu.edu.tw/
   height: 52px
 
-# Logo wall is intentionally kept to CGMH + NYCU only (user decision 2026-06-20).
+- name: UT Southwestern Medical Center
+  logo: utsw.png
+  url: https://www.utsouthwestern.edu/
+  height: 28px # flat wordmark (5:1) — tuned to match CGMH display width
+
+# Logo wall = CGMH + NYCU (user decision 2026-06-20) + UTSW (user request 2026-09-26, fellowship).
 # Other institutions (TMU/CGU/NYU/SGH/Juntendo) were considered but deemed
 # unsuitable for the wall — do not add without explicit request.
