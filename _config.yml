@@ -202,6 +202,7 @@ exclude:
   - _pages/about_einstein.md
   - purgecss.config.js
   - README.md
+  - CLAUDE.md # internal notes; also contains literal Liquid tags that break the Pages build
   - readme_preview/
   - vendor
 keep_files:
