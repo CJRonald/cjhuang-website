@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-title" content="Lovely Home">
 <meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#151514" media="(prefers-color-scheme: dark)">
-<link rel="stylesheet" href="app.css?v=15ccfdd2">
+<link rel="stylesheet" href="app.css?v=274273f0">
 </head>
 <body class="gated">
 <div id="pairGate" class="gate">
@@ -31,7 +31,18 @@
 </div>
 
 <main>
-  <h1 id="appTitle">🏡 Home</h1>
+  <header class="topbar">
+    <h1 id="appTitle">🏡 Home</h1>
+    <!-- Account corner: who this device is signed in as; tap for the email and 登出此裝置. Filled by drawMe() after init. -->
+    <div class="me" id="me">
+      <button type="button" class="me-chip" id="meChip" aria-haspopup="true" aria-expanded="false" aria-controls="mePop" hidden><span class="avatar" id="meAvatar">🙂</span><span id="meName"></span></button>
+      <div class="me-pop" id="mePop" hidden>
+        <div class="me-row"><span class="avatar big" id="mePopAvatar">🙂</span><div><div class="me-payer" id="mePopName"></div><div class="me-email" id="meEmail"></div></div></div>
+        <div class="note">這個裝置以上面的帳號登入。登出後需要重新配對（配對碼在配對頁產生）。</div>
+        <button type="button" class="chip" id="logoutBtn">登出此裝置</button>
+      </div>
+    </div>
+  </header>
 
   <div id="tabDash" class="tab">
   <section class="card">
@@ -77,7 +88,6 @@
     <div class="card-t" id="topTitle">本月最大 5 筆</div>
     <ul id="topMonth"></ul>
   </section>
-  <section class="card pair"><div class="card-t">這個裝置</div><div class="note">登出後需要重新配對才能使用。配對碼在 kiosk 頁（Google 登入）產生。</div><button type="button" class="chip" id="logoutBtn">登出此裝置</button></section>
   </div>
   <div id="tabEntry" class="tab" hidden>
   <form class="card" id="f" autocomplete="off">
@@ -129,6 +139,6 @@
   </button>
 </nav>
 <script src="shim.js?v=bb52042c"></script>
-<script src="app.js?v=b2bc603a"></script>
+<script src="app.js?v=b76fb4d7"></script>
 </body>
 </html>
