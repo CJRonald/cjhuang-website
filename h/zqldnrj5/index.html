@@ -341,10 +341,18 @@
   input.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') pair(); });
   input.addEventListener('input', function () { if (input.value.replace(/\D/g, '').length === 6) pair(); });
 
+  // Logout clears the device only after the server confirms the session is gone; otherwise the token stays
+  // (a half-logout would leave a live session the user believes is dead).
   var lb = document.getElementById('logoutBtn');
   if (lb) lb.onclick = function () {
-    lb.disabled = true;
-    post({ action: 'logout', token: getToken() }).catch(function () {}).then(function () { setToken(null); location.reload(); });
+    lb.disabled = true; lb.textContent = '登出中…';
+    post({ action: 'logout', token: getToken() })
+      .then(function (j) {
+        if (j && j.ok) { setToken(null); location.reload(); return; }
+        if (j && j.code === 'AUTH') { setToken(null); location.reload(); return; }   // server no longer knows it anyway
+        lb.disabled = false; lb.textContent = '登出失敗，再試一次';
+      })
+      .catch(function () { lb.disabled = false; lb.textContent = '連線失敗，再試一次'; });
   };
 
   if (getToken()) showGate(false); else showGate(true);
