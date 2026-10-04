@@ -4,7 +4,7 @@
 (function () {
   var API_URL = (document.querySelector('meta[name="api-url"]') || {}).content || '';
   var KEY = 'lovelyhome.token';
-  var APP_TITLE = '🏡 Ronald & Livia Lovely Home';
+  var APP_TITLE = '🏡 Ronald & Livia Home';
   function getToken() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function setToken(t) { try { if (t) localStorage.setItem(KEY, t); else localStorage.removeItem(KEY); } catch (e) {} }
   function showGate(on) {
