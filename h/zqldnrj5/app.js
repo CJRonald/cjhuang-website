@@ -32,6 +32,7 @@
   var init = null;
   function render(data, keepForm) {
     init = data;
+    drawMe(data.me);
 
     state.usdRate = data.lastUsdRate;
     if (!keepForm) {
@@ -332,6 +333,20 @@
     load(true);
   });
 
+
+  // ---- Account corner (top right): avatar + payer name; tap for email and 登出此裝置 ----
+  var AVATAR = { Ronald: '👨🏻', Livia: '👩🏻' };
+  function drawMe(me) {
+    if (!me) return;
+    var name = me.payer || '待確認', av = AVATAR[name] || '🙂';
+    $('meAvatar').textContent = av; $('mePopAvatar').textContent = av;
+    $('meName').textContent = name; $('mePopName').textContent = name;
+    $('meEmail').textContent = me.email || '';
+    $('meChip').hidden = false;
+  }
+  function meOpen(open) { $('mePop').hidden = !open; $('meChip').setAttribute('aria-expanded', String(open)); }
+  $('meChip').onclick = function () { meOpen($('mePop').hidden); };
+  document.addEventListener('click', function (ev) { if (!$('mePop').hidden && !ev.target.closest('#me')) meOpen(false); });
 
   // ---- Tabs ----
   function showTab(t) {
