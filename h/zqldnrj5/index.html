@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-title" content="Lovely Home">
 <meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#151514" media="(prefers-color-scheme: dark)">
-<link rel="stylesheet" href="app.css?v=a7703c75">
+<link rel="stylesheet" href="app.css?v=d5bee279">
 </head>
 <body class="gated">
 <div id="pairGate" class="gate">
@@ -166,6 +166,8 @@
       </section>
       <section class="card">
         <div class="pie-head"><span class="card-t">行程</span><button type="button" class="chip" id="itemNew">＋ 項目</button></div>
+        <!-- Who-filter: shown only when the family splits on this trip. 全家 items always show; a dependent's items stay visible to either adult. -->
+        <div class="chips who-filter" id="whoFilter" hidden></div>
         <div id="timeline" class="timeline"></div>
       </section>
       <section class="card" id="poolCard">
@@ -217,6 +219,9 @@
     <div class="sheet-t" id="ifTitle">新項目</div>
     <label>類型</label><div class="chips" id="ifType"></div>
     <label>標題</label><input id="ifName" required maxlength="120" placeholder="例如：Home2 Suites Pflugerville">
+    <label>參加（誰去；「負責人」是誰訂）</label>
+    <div class="chips" id="ifWhoQuick"></div>
+    <div class="chips who-pick" id="ifWhoPick" hidden></div>
     <div class="row2">
       <div><label id="ifDateL">日期（空＝候選）</label><input id="ifDate" type="date"></div>
       <div><label id="ifStartL">開始</label><input id="ifStart" type="time"></div>
@@ -269,6 +274,6 @@
   </button>
 </nav>
 <script src="shim.js?v=c3122279"></script>
-<script src="app.js?v=ecb3d914"></script>
+<script src="app.js?v=e3510b1e"></script>
 </body>
 </html>

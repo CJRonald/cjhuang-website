@@ -582,6 +582,21 @@
   var TYPE_ICON = { '住宿': '🏨', '航班': '✈️', '交通': '🚆', '租車': '🚗', '景點': '📍', '餐飲': '🍽️', '活動': '🎟️', '備忘': '📝' };
   // What an item becomes when it is written down as an expense.
   var TYPE_CATEGORY = { '住宿': '住房', '航班': '機票', '交通': '交通', '租車': '交通', '景點': '娛樂旅遊', '餐飲': '外食', '活動': '娛樂旅遊' };
+  // 參加: who takes part in an item. Empty / everyone = a family item. Names come from 設定!參加者 (adults first).
+  var PERSON_ICON = { Ronald: '👨🏻', Livia: '👩🏻', Rica: '👧' };
+  function people() { return (trips.cur && trips.cur.people) || ['Ronald', 'Livia', 'Rica']; }
+  function isAll(who) { var p = people(); return !who || !who.length || p.every(function (x) { return who.indexOf(x) >= 0; }); }
+  function whoLabel(who) { return who.map(function (n) { return (PERSON_ICON[n] || '') + n; }).join('・'); }
+  // Adults are the ledger's payers; anyone else (a child, a guest) is a dependent whose items both adults need to see.
+  function isAdult(n) { return init && init.payers && init.payers.indexOf(n) >= 0; }
+  function whoFilter() { return trips.curId ? (cacheGet('whoFilter.' + trips.curId) || {}).v || '全部' : '全部'; }
+  // Visible under a person filter: family items, the person's own items, and a dependent's items (tagged as such).
+  function whoVisible(i, f) {
+    if (f === '全部' || isAll(i.who)) return { show: true, other: false };
+    if (i.who.indexOf(f) >= 0) return { show: true, other: false };
+    if (i.who.some(function (n) { return !isAdult(n); })) return { show: true, other: true };
+    return { show: false, other: false };
+  }
   function cacheGet(k) { try { return JSON.parse(localStorage.getItem('ledger.' + k) || 'null'); } catch (e) { return null; } }
   function cachePutStrict(k, v) { try { localStorage.setItem('ledger.' + k, JSON.stringify(Object.assign({ _at: Date.now() }, v))); return true; } catch (e) { return false; } }
   // Storage is finite: when a write fails, thumbnails are dropped first so the plan itself stays cached.
@@ -708,14 +723,15 @@
       return /^https?:\/\/\S+$/.test(w) ? '<a href="' + esc(w) + '" target="_blank" rel="noopener" data-link>' + esc(w.replace(/^https?:\/\//, '').slice(0, 40)) + '</a>' : esc(w);
     }).join('');
   }
-  function itemHtml(i, showDate) {
+  function itemHtml(i, showDate, other) {
     var st = i.status === '待訂' ? 'todo' : i.status === '已付' ? 'paid' : '';
+    var who = isAll(i.who) ? '' : '<span class="who">' + esc(whoLabel(i.who)) + (other ? ' 的行程' : '') + '</span>';
     var time = i.type === '住宿' ? '住' : (i.start || '') + (i.end && /^\d\d:\d\d$/.test(i.end) ? '–' + i.end : '');
     var meta = [i.place ? mapLink(i.place) : '', i.cond ? esc(i.cond) : '', showDate ? esc(i.date) : '', i.amount !== '' ? esc(i.currency + ' ' + i.amount) : '', esc(i.owner || '')]
                .filter(Boolean).join(' · ');
     if (i.ref) meta += (meta ? '<br>' : '') + linkify(i.ref);
-    return '<div class="it' + (i.status === '取消' ? ' cancelled' : '') + '" data-id="' + esc(i.id) + '"><span class="t">' + esc(time) + '</span><span class="ic">' +
-           (TYPE_ICON[i.type] || '•') + '</span><span class="n">' + esc(i.title) + (meta ? '<div class="meta">' + meta + '</div>' : '') + '</span>' +
+    return '<div class="it' + (i.status === '取消' ? ' cancelled' : '') + (other ? ' other' : '') + '" data-id="' + esc(i.id) + '"><span class="t">' + esc(time) + '</span><span class="ic">' +
+           (TYPE_ICON[i.type] || '•') + '</span><span class="n">' + esc(i.title) + who + (meta ? '<div class="meta">' + meta + '</div>' : '') + '</span>' +
            (i.photo ? '<img class="th" data-photo="' + esc(i.photo) + '" alt="">' : '') +
            '<span class="st ' + st + '">' + esc(i.status) + '</span></div>';
   }
@@ -781,15 +797,24 @@
       }
       keys.sort();
     }
+    // Who-filter: only offered when this trip has items that are not for everyone. Default 全部; remembered per trip.
+    var hasSplit = items.some(function (i) { return i.status !== '取消' && !isAll(i.who); });
+    var f = hasSplit ? whoFilter() : '全部';
+    if (hasSplit && people().indexOf(f) < 0) f = '全部';
+    $('whoFilter').hidden = !hasSplit;
+    if (hasSplit) chips($('whoFilter'), ['全部'].concat(people()), f, function (v) { cachePut('whoFilter.' + trips.curId, { v: v }); drawTrip(d, cached); });
+    var render = function (list) {
+      return list.map(function (i) { var vis = whoVisible(i, f); return vis.show ? itemHtml(i, false, vis.other) : ''; }).join('');
+    };
     var html = '';
     keys.forEach(function (k) {
       var stay = stayOn(items, k);
       html += '<div class="day"><span>' + esc(dayHead(k)) + '</span>' + (stay ? '<span class="stay" data-id="' + esc(stay.id) + '">🏨 ' + esc(stay.title) + '</span>' : '') + '</div>';
-      html += days[k].map(function (i) { return itemHtml(i, false); }).join('') || '<div class="empty">（空）</div>';
+      html += render(days[k]) || '<div class="empty">' + (days[k].length ? '此篩選下無項目' : '（空）') + '</div>';
     });
     $('timeline').innerHTML = html || '<div class="empty">還沒有行程。按「＋ 項目」加入。</div>';
     var pool = items.filter(function (i) { return !i.date; });
-    $('pool').innerHTML = pool.map(function (i) { return itemHtml(i, false); }).join('') || '<div class="empty">沒有候選項目</div>';
+    $('pool').innerHTML = render(pool) || '<div class="empty">' + (pool.length ? '此篩選下無候選項目' : '沒有候選項目') + '</div>';
     fillThumbs($('timeline')); fillThumbs($('pool'));
     $('checks').innerHTML = d.checks.map(function (c) {
       return '<li data-id="' + esc(c.id) + '"' + (c.done ? ' class="on"' : '') + '><span class="cb">' + (c.done ? '✓' : '') + '</span><span class="tx">' + esc(c.text) + '</span>' +
@@ -897,6 +922,9 @@
     form.itemType = i ? i.type : (form.itemType || L.types[0]); form.itemCur = i ? i.currency : (trips.cur ? trips.cur.trip.currency : 'USD'); form.itemStatus = i ? i.status : '待訂';
     pick('ifType', L.types, 'itemType', endMode); pick('ifCur', L.currencies, 'itemCur'); pick('ifStatus', L.itemStatuses, 'itemStatus');
     options($('ifOwner'), [''].concat(L.owners), i ? i.owner : '');
+    form.itemWho = i ? (i.who && i.who.length ? i.who.slice() : people().slice()) : people().slice();
+    form.whoCustom = false;
+    drawWho();
     $('ifName').value = i ? i.title : ''; $('ifDate').value = i ? i.date : ''; $('ifStart').value = i ? i.start : '';
     var endIsDate = i && /^\d{4}-\d{2}-\d{2}$/.test(i.end);
     $('ifEnd').value = i && !endIsDate ? i.end : ''; $('ifEndDate').value = endIsDate ? i.end : '';
@@ -909,6 +937,40 @@
     }
     endMode();
     openSheet('item');
+  }
+  // 參加 picker: quick choices (全家, each adult, the adult+dependents combo) plus 自選 for any other set.
+  function whoQuick() {
+    var p = people(), adults = p.filter(isAdult), kids = p.filter(function (n) { return !isAdult(n); });
+    var q = [{ label: '全家', set: p.slice() }];
+    adults.forEach(function (a) { q.push({ label: a, set: [a] }); });
+    if (adults.length > 1 && kids.length) q.push({ label: adults[1] + '＋' + kids.join('＋'), set: [adults[1]].concat(kids) });
+    return q;
+  }
+  function sameSet(a, b) { return a.length === b.length && a.every(function (x) { return b.indexOf(x) >= 0; }); }
+  function drawWho() {
+    var q = whoQuick(), cur = q.filter(function (x) { return sameSet(x.set, form.itemWho); })[0];
+    var labels = q.map(function (x) { return x.label; }).concat(['自選…']);
+    var on = cur && !form.whoCustom ? cur.label : '自選…';
+    chips($('ifWhoQuick'), labels, on, function (v) {
+      if (v === '自選…') { form.whoCustom = true; }
+      else { form.whoCustom = false; form.itemWho = q.filter(function (x) { return x.label === v; })[0].set.slice(); }
+      drawWho();
+    });
+    var pickEl = $('ifWhoPick');
+    pickEl.hidden = !(form.whoCustom || !cur);
+    if (!pickEl.hidden) {
+      pickEl.innerHTML = '';
+      people().forEach(function (n) {
+        var b = document.createElement('button'); b.type = 'button';
+        b.className = 'chip' + (form.itemWho.indexOf(n) >= 0 ? ' on' : ''); b.textContent = (PERSON_ICON[n] || '') + n;
+        b.onclick = function () {
+          var k = form.itemWho.indexOf(n);
+          if (k >= 0) form.itemWho.splice(k, 1); else form.itemWho.push(n);
+          form.whoCustom = true; drawWho();
+        };
+        pickEl.appendChild(b);
+      });
+    }
   }
   // form.itemPhoto = Drive file id saved with the item; '' = none. The preview shows a local data URL.
   function setFormPhoto(id, dataUrl) {
@@ -951,7 +1013,8 @@
     var i = { trip: trips.cur.trip.id, type: form.itemType, title: $('ifName').value, date: $('ifDate').value, start: $('ifStart').value,
               end: stay ? $('ifEndDate').value : $('ifEnd').value, place: $('ifPlace').value, note: $('ifNote').value, ref: $('ifRef').value,
               cond: $('ifCond').value, amount: $('ifAmount').value, currency: form.itemCur, status: form.itemStatus, owner: $('ifOwner').value,
-              photo: form.itemPhoto || '' };
+              photo: form.itemPhoto || '', who: people().filter(function (n) { return form.itemWho.indexOf(n) >= 0; }) };
+    if (!i.who.length) { $('ifMsg').textContent = '請選至少一位參加者'; return; }
     if (form.photoBusy) { $('ifMsg').textContent = '照片上傳中，請稍候'; return; }
     if (form.item) { i.id = form.item.id; i.rev = form.item.rev; }
     trips.saving = true; $('ifSave').disabled = true; $('ifMsg').textContent = '儲存中…';
