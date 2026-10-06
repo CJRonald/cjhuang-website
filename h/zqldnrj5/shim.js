@@ -42,7 +42,7 @@
     getTrip: ['trip', function (id) { return { id: id }; }],
     saveTrip: ['tripSave', function (t) { return { trip: t }; }],
     saveItem: ['itemSave', function (i) { return { item: i }; }],
-    cancelItem: ['itemCancel', function (id, at) { return { id: id, updatedAt: at }; }],
+    cancelItem: ['itemCancel', function (id, rev) { return { id: id, rev: rev }; }],
     saveCheck: ['checkSave', function (c) { return { check: c }; }],
     exportTrip: ['tripExport', function (id) { return { id: id }; }],
   };
@@ -68,6 +68,8 @@
       .then(function (j) {
         if (!j.ok) { err.textContent = j.error || '配對失敗'; go.disabled = false; input.select(); return; }
         setToken(j.token);
+        // Storage can be refused (private window, full quota): reloading would just show the gate again.
+        if (getToken() !== j.token) { err.textContent = '這個瀏覽器無法儲存登入資料（私密瀏覽或儲存空間已滿），請改用一般視窗再配對一次'; go.disabled = false; return; }
         location.reload();        // start the app fresh with the token in place
       })
       .catch(function () { err.textContent = '連線失敗，請稍後再試'; go.disabled = false; });

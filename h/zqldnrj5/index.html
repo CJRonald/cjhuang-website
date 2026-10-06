@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-title" content="Lovely Home">
 <meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#151514" media="(prefers-color-scheme: dark)">
-<link rel="stylesheet" href="app.css?v=4b98c5b5">
+<link rel="stylesheet" href="app.css?v=a7703c75">
 </head>
 <body class="gated">
 <div id="pairGate" class="gate">
@@ -153,6 +153,16 @@
           <button type="button" class="chip" id="tripExportBtn">匯出成筆記</button>
         </div>
         <div class="note" id="tdNote" hidden></div>
+        <!-- Export result: share/copy need their own tap (user activation), so they are buttons on the result. -->
+        <div class="export-box" id="exportBox" hidden>
+          <div class="note" id="exportTitle"></div>
+          <div class="chips">
+            <button type="button" class="chip" id="exportShare">分享</button>
+            <button type="button" class="chip" id="exportCopy">複製</button>
+            <button type="button" class="chip" id="exportClose">關閉</button>
+          </div>
+          <textarea id="exportText" readonly rows="6" aria-label="筆記內容"></textarea>
+        </div>
       </section>
       <section class="card">
         <div class="pie-head"><span class="card-t">行程</span><button type="button" class="chip" id="itemNew">＋ 項目</button></div>
@@ -258,7 +268,7 @@
     <span>旅程</span>
   </button>
 </nav>
-<script src="shim.js?v=2c47dcc4"></script>
-<script src="app.js?v=32f63dc8"></script>
+<script src="shim.js?v=c3122279"></script>
+<script src="app.js?v=ecb3d914"></script>
 </body>
 </html>
