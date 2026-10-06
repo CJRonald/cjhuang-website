@@ -35,8 +35,16 @@
     getAgenda: ['agenda', function (d) { return { days: d }; }],
     addExpense: ['add', function (e) { return { e: e }; }],
     undoExpense: ['undo', function (row, sig, month) { return { row: row, sig: sig, month: month }; }],
-    uploadReceipt: ['upload', function (p) { return { photo: p }; }],
+    uploadReceipt: ['upload', function (p, kind) { return { photo: p, kind: kind || 'receipt' }; }],
+    getPhoto: ['photo', function (id) { return { id: id }; }],
     recognizeReceipt: ['recognize', function (p) { return { photo: p }; }],
+    getTrips: ['trips', function () { return {}; }],
+    getTrip: ['trip', function (id) { return { id: id }; }],
+    saveTrip: ['tripSave', function (t) { return { trip: t }; }],
+    saveItem: ['itemSave', function (i) { return { item: i }; }],
+    cancelItem: ['itemCancel', function (id, at) { return { id: id, updatedAt: at }; }],
+    saveCheck: ['checkSave', function (c) { return { check: c }; }],
+    exportTrip: ['tripExport', function (id) { return { id: id }; }],
   };
   window.google = { script: { get run() {
     var ok = function () {}, fail = function (e) { console.error(e); };

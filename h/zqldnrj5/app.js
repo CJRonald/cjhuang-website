@@ -42,6 +42,7 @@
       options($('method'), data.methods, store('method') || data.methods[0]);
       setCurrency(state.currency);
     }
+    drawTripSelect(data.trips || []);
     drawCategories(); drawCurrencies();
     drawDash();
     if (pie.range === null) pie.range = (dashAgg().byMonth[init.month] || 0) > 0 ? 'month' : 'all';
@@ -192,7 +193,9 @@
       amount: $('amount').value, currency: state.currency, rate: $('rate').value,
       payer: $('payer').value, method: store('method', $('method').value), funding: $('funding').value,
       ref: [$('ref').value.trim(), state.receiptUrl || ''].filter(Boolean).join(' '),
-      note: [$('pending').checked ? '待補' : '', $('oneTime').checked ? '一次性' : '', $('note').value.trim()].filter(Boolean).join('；')
+      note: [$('pending').checked ? '待補' : '', $('oneTime').checked ? '一次性' : '', $('note').value.trim()].filter(Boolean).join('；'),
+      trip: $('trip').value || '',
+      status: $('estimate').checked ? '預估' : '已付'
     };
     // Same payload after a failure keeps the same request id, so a save whose reply was lost is not written twice.
     var key = JSON.stringify(e);
@@ -218,7 +221,9 @@
         // Each new entry starts from today again, even after back-filling an older date.
         $('date').value = today(); state.dateTouched = false;
         state.receiptUrl = null; state.scanFilled = {}; $('pending').checked = false; $('oneTime').checked = false; scanStatus('自動填入金額、日期、項目');
+        $('estimate').checked = false; $('trip').value = '';
         state.category = null; drawCategories();
+        if (e.trip) trips.stale = true;          // the trip's spend changed; refresh it when shown next
       })
       .withFailureHandler(function (err) {
         setBusy(null);
@@ -352,8 +357,10 @@
   function showTab(t) {
     $('tabEntry').hidden = t !== 'entry';
     $('tabDash').hidden = t !== 'dash';
+    $('tabTrip').hidden = t !== 'trip';
     [].forEach.call(document.querySelectorAll('#tabbar button'), function (b) { b.classList.toggle('on', b.getAttribute('data-tab') === t); });
     window.scrollTo(0, 0);
+    if (t === 'trip') showTrips();
   }
   $('tabbar').onclick = function (ev) { var b = ev.target.closest('button'); if (b) showTab(b.getAttribute('data-tab')); };
   showTab('dash');   // always open on the Dashboard
@@ -558,7 +565,403 @@
   $('tabbar').addEventListener('click', function () { if (!$('tabDash').hidden) loadAgenda(false); });
   document.addEventListener('visibilitychange', function () {
     if (document.visibilityState === 'visible' && !$('tabDash').hidden) loadAgenda(false);
+    if (document.visibilityState === 'visible' && !$('tabTrip').hidden) showTrips(true);
   });
   loadAgenda(true);
+
+  // ---- 旅程: list → one trip. Rows live on the 旅程/行程項目/清單 tabs; the last reply of each call is kept in
+  // localStorage so the page still shows the plan without a connection (marked as such), which is when it is needed most.
+  var trips = { list: null, lists: null, cur: null, curId: null, stale: false, loading: false, at: 0, saving: false, formOf: null };
+  var TYPE_ICON = { '住宿': '🏨', '航班': '✈️', '交通': '🚆', '租車': '🚗', '景點': '📍', '餐飲': '🍽️', '活動': '🎟️', '備忘': '📝' };
+  // What an item becomes when it is written down as an expense.
+  var TYPE_CATEGORY = { '住宿': '住房', '航班': '機票', '交通': '交通', '租車': '交通', '景點': '娛樂旅遊', '餐飲': '外食', '活動': '娛樂旅遊' };
+  function cacheGet(k) { try { return JSON.parse(localStorage.getItem('ledger.' + k) || 'null'); } catch (e) { return null; } }
+  function cachePut(k, v) { try { localStorage.setItem('ledger.' + k, JSON.stringify(Object.assign({ _at: Date.now() }, v))); } catch (e) {} }
+  function offlineNote(el, cached) {
+    el.hidden = !cached;
+    if (cached) el.textContent = '離線或讀取失敗：顯示 ' + new Date(cached._at).toLocaleString('zh-TW', { hour12: false }) + ' 的內容';
+  }
+  function tripMoney(v) { return money(v); }
+  function tripCur(t) { return t && t.currency === 'TWD' ? 'NT$' : 'US$'; }
+  function dayHead(d) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d); if (!m) return d;
+    var dt = new Date(+m[1], +m[2] - 1, +m[3]);
+    return (+m[2]) + '/' + (+m[3]) + '（' + '日一二三四五六'.charAt(dt.getDay()) + '）';
+  }
+
+  function drawTripSelect(list) {
+    var sel = $('trip'), cur = sel.value;
+    sel.innerHTML = '';
+    var o = document.createElement('option'); o.value = ''; o.textContent = '（不屬於旅程）'; sel.appendChild(o);
+    list.forEach(function (t) { var x = document.createElement('option'); x.value = t.id; x.textContent = t.name; sel.appendChild(x); });
+    sel.value = list.some(function (t) { return t.id === cur; }) ? cur : '';
+    $('tripRow').hidden = list.length === 0;
+  }
+
+  function showTrips(soft) {
+    if (trips.curId) { loadTrip(trips.curId, soft); return; }
+    loadTrips(soft);
+  }
+  function loadTrips(soft) {
+    if (trips.loading) return;
+    if (soft && !trips.stale && Date.now() - trips.at < 5 * 60 * 1000) return;
+    trips.loading = true;
+    google.script.run
+      .withSuccessHandler(function (r) {
+        trips.loading = false; trips.at = Date.now(); trips.stale = false;
+        trips.list = r.trips; trips.lists = r.lists; cachePut('trips', r);
+        drawTrips(r, null);
+      })
+      .withFailureHandler(function () {
+        trips.loading = false;
+        var c = cacheGet('trips');
+        if (c) { trips.list = c.trips; trips.lists = c.lists; drawTrips(c, c); }
+        else $('trips').innerHTML = '<li class="loading">讀取失敗，請稍後再試</li>';
+      })
+      .getTrips();
+  }
+  function drawTrips(r, cached) {
+    offlineNote($('tripsNote'), cached);
+    $('trips').className = 'trips';
+    $('trips').innerHTML = r.trips.map(function (t) {
+      var spent = dash.cur === 'USD' ? t.spend.usd : t.spend.twd, est = dash.cur === 'USD' ? t.spend.usdEst : t.spend.twdEst;
+      var b = t.budget !== '' ? Number(t.budget) * (t.currency === 'USD' ? (dash.cur === 'USD' ? 1 : init.fx) : (dash.cur === 'USD' ? 1 / init.fx : 1)) : 0;
+      var pct = b > 0 ? Math.min(100, Math.round((spent + est) / b * 100)) : 0;
+      var active = ['候選', '規劃中', '進行中'].indexOf(t.status) >= 0;
+      return '<li data-id="' + esc(t.id) + '"' + (active ? '' : ' class="done"') + '><div class="tn"><span>' + esc(t.name) + '</span><span class="amt">' +
+             (t.spend.n ? tripMoney(spent) + (est ? ' <span class="meta">+' + tripMoney(est) + ' 預估</span>' : '') : '<span class="meta">尚無花費</span>') + '</span></div>' +
+             '<div class="meta">' + esc(t.start || '日期未定') + (t.end ? ' – ' + esc(t.end) : '') + ' · ' + esc(t.kind) + ' · ' + esc(t.status) +
+             (t.companions ? ' · ' + esc(t.companions) : '') + '</div>' +
+             (b > 0 ? '<span class="bar"><i class="' + (spent + est > b ? 'over' : '') + '" style="width:' + pct + '%"></i></span>' : '') + '</li>';
+    }).join('') || '<li class="loading">還沒有旅程。按「＋ 新旅程」開始。</li>';
+  }
+  $('trips').onclick = function (ev) { var li = ev.target.closest('[data-id]'); if (li) openTrip(li.getAttribute('data-id')); };
+  function openTrip(id) {
+    trips.curId = id; trips.cur = null;
+    $('tripList').hidden = true; $('tripDetail').hidden = false; window.scrollTo(0, 0);
+    var c = cacheGet('trip.' + id);
+    if (c) drawTrip(c, null);                       // instant paint from the last copy, then refresh
+    else { $('timeline').innerHTML = '<div class="empty">載入中…</div>'; $('tdName').textContent = ''; }
+    loadTrip(id, false);
+  }
+  $('tripBack').onclick = function () { trips.curId = null; trips.cur = null; $('tripDetail').hidden = true; $('tripList').hidden = false; loadTrips(true); };
+  function loadTrip(id, soft) {
+    if (trips.loading) return;
+    if (soft && !trips.stale && trips.cur && Date.now() - trips.at < 2 * 60 * 1000) return;
+    trips.loading = true;
+    google.script.run
+      .withSuccessHandler(function (d) {
+        trips.loading = false; trips.at = Date.now(); trips.stale = false;
+        if (trips.curId !== id) return;
+        trips.cur = d; trips.lists = d.lists; cachePut('trip.' + id, d); drawTrip(d, null);
+      })
+      .withFailureHandler(function (err) {
+        trips.loading = false;
+        if (trips.curId !== id) return;
+        var c = cacheGet('trip.' + id);
+        if (c) { trips.cur = c; drawTrip(c, c); } else { $('timeline').innerHTML = '<div class="empty">' + esc(err.message) + '</div>'; }
+      })
+      .getTrip(id);
+  }
+  function stayOn(items, day) {
+    return items.filter(function (i) { return i.type === '住宿' && i.status !== '取消' && i.date && i.date <= day && (!i.end || day < i.end); })[0];
+  }
+  // 地點 opens Google Maps; URLs in 確認號／連結 open in a new tab. Links stop the tap from opening the form.
+  function mapLink(place) { return '<a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(place) + '" target="_blank" rel="noopener" data-link>' + esc(place) + '</a>'; }
+  function linkify(s) {
+    return String(s).split(/(\s+)/).map(function (w) {
+      return /^https?:\/\/\S+$/.test(w) ? '<a href="' + esc(w) + '" target="_blank" rel="noopener" data-link>' + esc(w.replace(/^https?:\/\//, '').slice(0, 40)) + '</a>' : esc(w);
+    }).join('');
+  }
+  function itemHtml(i, showDate) {
+    var st = i.status === '待訂' ? 'todo' : i.status === '已付' ? 'paid' : '';
+    var time = i.type === '住宿' ? '住' : (i.start || '') + (i.end && /^\d\d:\d\d$/.test(i.end) ? '–' + i.end : '');
+    var meta = [i.place ? mapLink(i.place) : '', i.cond ? esc(i.cond) : '', showDate ? esc(i.date) : '', i.amount !== '' ? esc(i.currency + ' ' + i.amount) : '', esc(i.owner || '')]
+               .filter(Boolean).join(' · ');
+    if (i.ref) meta += (meta ? '<br>' : '') + linkify(i.ref);
+    return '<div class="it' + (i.status === '取消' ? ' cancelled' : '') + '" data-id="' + esc(i.id) + '"><span class="t">' + esc(time) + '</span><span class="ic">' +
+           (TYPE_ICON[i.type] || '•') + '</span><span class="n">' + esc(i.title) + (meta ? '<div class="meta">' + meta + '</div>' : '') + '</span>' +
+           (i.photo ? '<img class="th" data-photo="' + esc(i.photo) + '" alt="">' : '') +
+           '<span class="st ' + st + '">' + esc(i.status) + '</span></div>';
+  }
+
+  // Item photos: fetched through the API (Drive links need a login), reduced to a small thumbnail on the phone and
+  // kept in localStorage so the timeline still shows them offline. The full image is fetched again for the form.
+  var photos = { mem: {}, inflight: {} };
+  function thumbOf(dataUrl, max, cb) {
+    var img = new Image();
+    img.onload = function () {
+      try {
+        var k = Math.min(1, max / Math.max(img.width, img.height));
+        var c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        cb(c.toDataURL('image/jpeg', 0.75));
+      } catch (e) { cb(dataUrl); }
+    };
+    img.onerror = function () { cb(null); };
+    img.src = dataUrl;
+  }
+  function fetchPhoto(id, cb) {
+    if (photos.mem[id]) { cb(photos.mem[id]); return; }
+    google.script.run
+      .withSuccessHandler(function (p) { var url = 'data:' + p.mime + ';base64,' + p.data; photos.mem[id] = url; cb(url); })
+      .withFailureHandler(function () { cb(null); })
+      .getPhoto(id);
+  }
+  function fillThumbs(root) {
+    [].forEach.call(root.querySelectorAll('img[data-photo]'), function (img) {
+      var id = img.getAttribute('data-photo'), c = cacheGet('ph.' + id);
+      if (c && c.t) { img.src = c.t; return; }
+      if (photos.inflight[id]) return;
+      photos.inflight[id] = true;
+      fetchPhoto(id, function (url) {
+        delete photos.inflight[id];
+        if (!url) { img.remove(); return; }
+        thumbOf(url, 160, function (t) { if (t) { cachePut('ph.' + id, { t: t }); img.src = t; } });
+      });
+    });
+  }
+  function drawTrip(d, cached) {
+    var t = d.trip, items = d.items;
+    offlineNote($('tdNote'), cached);
+    $('tdName').textContent = t.name;
+    $('tdMeta').textContent = [t.start ? t.start + (t.end ? ' – ' + t.end : '') : '日期未定', t.kind, t.status, t.origin ? '起點 ' + t.origin : '', t.companions].filter(Boolean).join(' · ');
+    var spent = dash.cur === 'USD' ? d.spend.usd : d.spend.twd, est = dash.cur === 'USD' ? d.spend.usdEst : d.spend.twdEst;
+    $('tdSpent').textContent = tripMoney(spent); $('tdEst').textContent = tripMoney(est);
+    var fx = d.fx || init.fx;
+    var b = t.budget !== '' ? Number(t.budget) * (t.currency === 'USD' ? (dash.cur === 'USD' ? 1 : fx) : (dash.cur === 'USD' ? 1 / fx : 1)) : null;
+    $('tdBudget').textContent = b == null ? '—' : tripMoney(b);
+    $('tdLeft').textContent = b == null ? '' : (b - spent - est >= 0 ? '還剩 ' + tripMoney(b - spent - est) : '超出 ' + tripMoney(spent + est - b));
+    $('tdTodo').textContent = String(items.filter(function (i) { return i.status === '待訂'; }).length);
+    // Timeline by day: the stay first (derived from check-in/out), then the day's items.
+    var days = {};
+    items.forEach(function (i) { if (i.date && i.type !== '住宿') (days[i.date] = days[i.date] || []).push(i); });
+    var keys = Object.keys(days).sort();
+    if (t.start && t.end && t.end >= t.start) {                               // fill empty days inside the trip
+      for (var dd = t.start; dd <= t.end && keys.length < 60; ) {
+        if (!days[dd]) { days[dd] = []; keys.push(dd); }
+        var n = new Date(+dd.slice(0, 4), +dd.slice(5, 7) - 1, +dd.slice(8, 10) + 1);
+        dd = n.getFullYear() + '-' + pad2(n.getMonth() + 1) + '-' + pad2(n.getDate());
+      }
+      keys.sort();
+    }
+    var html = '';
+    keys.forEach(function (k) {
+      var stay = stayOn(items, k);
+      html += '<div class="day"><span>' + dayHead(k) + '</span>' + (stay ? '<span class="stay" data-id="' + esc(stay.id) + '">🏨 ' + esc(stay.title) + '</span>' : '') + '</div>';
+      html += days[k].map(function (i) { return itemHtml(i, false); }).join('') || '<div class="empty">（空）</div>';
+    });
+    $('timeline').innerHTML = html || '<div class="empty">還沒有行程。按「＋ 項目」加入。</div>';
+    var pool = items.filter(function (i) { return !i.date; });
+    $('pool').innerHTML = pool.map(function (i) { return itemHtml(i, false); }).join('') || '<div class="empty">沒有候選項目</div>';
+    fillThumbs($('timeline')); fillThumbs($('pool'));
+    $('checks').innerHTML = d.checks.map(function (c) {
+      return '<li data-id="' + esc(c.id) + '"' + (c.done ? ' class="on"' : '') + '><span class="cb">' + (c.done ? '✓' : '') + '</span><span class="tx">' + esc(c.text) + '</span>' +
+             (c.owner ? '<span class="meta">' + esc(c.owner) + '</span>' : '') + '</li>';
+    }).join('') || '<li class="loading">清單是空的</li>';
+    $('tdSpendTotal').textContent = d.spend.n ? d.spend.n + ' 筆' : '';
+    $('tripSpend').innerHTML = (d.spend.rows || []).slice().reverse().map(function (r) {
+      return '<li><div>' + esc(r.i) + '<div class="meta">' + esc(r.d) + ' ' + catTag(r.c) + ' ' + esc(r.p) + (r.est ? ' · 預估' : '') + '</div></div>' +
+             '<div class="amt">' + esc(r.amount) + ' ' + esc(r.currency) + '<div class="meta">' + (r.twd ? 'NT$' + Math.round(r.twd).toLocaleString('en-US') : '') + '</div></div></li>';
+    }).join('') || '<li class="loading">記帳時在「旅程」選這一趟，花費就會列在這裡</li>';
+  }
+  $('timeline').onclick = $('pool').onclick = function (ev) {
+    if (ev.target.closest('a[data-link]')) return;       // a map or booking link: let it open, do not open the form
+    var el = ev.target.closest('[data-id]'); if (!el || !trips.cur) return;
+    var id = el.getAttribute('data-id');
+    var it = trips.cur.items.filter(function (i) { return i.id === id; })[0];
+    if (it) openItemForm(it);
+  };
+  $('checks').onclick = function (ev) {
+    var li = ev.target.closest('[data-id]'); if (!li || !trips.cur || trips.saving) return;
+    var c = trips.cur.checks.filter(function (x) { return x.id === li.getAttribute('data-id'); })[0]; if (!c) return;
+    li.classList.toggle('on');
+    saveCheck(Object.assign({}, c, { done: !c.done }));
+  };
+  $('checkForm').onsubmit = function (ev) {
+    ev.preventDefault();
+    var text = $('checkText').value.trim(); if (!text || !trips.cur) return;
+    $('checkText').value = '';
+    saveCheck({ trip: trips.cur.trip.id, text: text, owner: '' });
+  };
+  function saveCheck(c) {
+    trips.saving = true;
+    google.script.run
+      .withSuccessHandler(function (r) { trips.saving = false; if (r.conflict) msgTrip('這項剛被 ' + r.check.updatedBy + ' 改過'); trips.stale = true; loadTrip(trips.curId, false); })
+      .withFailureHandler(function (e) { trips.saving = false; msgTrip(e.message); loadTrip(trips.curId, false); })
+      .saveCheck(c);
+  }
+  function msgTrip(text) { var n = $('tdNote'); n.hidden = false; n.textContent = text; }
+
+  // ---- bottom sheet forms ----
+  var form = { trip: null, item: null, tripKind: null, tripCur: 'USD', itemType: null, itemCur: 'USD', itemStatus: '待訂' };
+  function openSheet(which) {
+    $('sheet').hidden = false; $('tripForm').hidden = which !== 'trip'; $('itemForm').hidden = which !== 'item';
+    trips.formOf = which; document.body.style.overflow = 'hidden';
+  }
+  function closeSheet() {
+    $('sheet').hidden = true; $('tripForm').hidden = true; $('itemForm').hidden = true;
+    trips.formOf = null; document.body.style.overflow = ''; $('tfMsg').textContent = ''; $('ifMsg').textContent = '';
+  }
+  $('sheetBg').onclick = closeSheet; $('tfCancel').onclick = closeSheet; $('ifCancel').onclick = closeSheet;
+  // Single-choice chips bound to a key of `form`; re-rendered on each pick.
+  function pick(id, list, key, after) {
+    chips($(id), list, form[key], function (v) { form[key] = v; pick(id, list, key, after); if (after) after(); });
+  }
+  function lists() { return trips.lists || (init && { kinds: ['家庭', '學術', '混合', '搬遷'], tripStatuses: ['候選', '規劃中', '進行中', '結束', '取消'], currencies: ['USD', 'TWD', 'JPY', 'EUR'], fundings: init.fundings, types: Object.keys(TYPE_ICON), itemStatuses: ['待訂', '已訂', '已付', '取消'], owners: ['Ronald', 'Livia'] }); }
+
+  function openTripForm(t) {
+    var L = lists(); form.trip = t || null;
+    $('tfTitle').textContent = t ? '編輯旅程' : '新旅程';
+    $('tfName').value = t ? t.name : ''; $('tfStart').value = t ? t.start : ''; $('tfEnd').value = t ? t.end : '';
+    $('tfOrigin').value = t ? t.origin : ''; $('tfComp').value = t ? t.companions : ''; $('tfBudget').value = t ? t.budget : ''; $('tfNote').value = t ? t.note : '';
+    form.tripKind = t ? t.kind : L.kinds[0]; form.tripCur = t ? t.currency : 'USD';
+    pick('tfKind', L.kinds, 'tripKind'); pick('tfCur', L.currencies, 'tripCur');
+    options($('tfFunding'), L.fundings, t ? t.funding : '自付');
+    options($('tfStatus'), L.tripStatuses, t ? t.status : '規劃中');
+    openSheet('trip');
+  }
+  $('tripNew').onclick = function () { openTripForm(null); };
+  $('tripEdit').onclick = function () { if (trips.cur) openTripForm(trips.cur.trip); };
+  $('tripForm').onsubmit = function (ev) {
+    ev.preventDefault();
+    if (trips.saving) return;
+    // novalidate on the form: WebKit leaves a cleared date/time input in a "bad input" state that would block the
+    // native submit silently, so required fields are checked here (and again by the API).
+    if (!$('tfName').value.trim()) { $('tfMsg').textContent = '請填旅程名稱'; $('tfName').focus(); return; }
+    var t = { name: $('tfName').value, kind: form.tripKind, start: $('tfStart').value, end: $('tfEnd').value, origin: $('tfOrigin').value,
+              companions: $('tfComp').value, budget: $('tfBudget').value, currency: form.tripCur, funding: $('tfFunding').value,
+              status: $('tfStatus').value, note: $('tfNote').value };
+    if (form.trip) { t.id = form.trip.id; t.updatedAt = form.trip.updatedAt; }
+    trips.saving = true; $('tfSave').disabled = true; $('tfMsg').textContent = '儲存中…';
+    google.script.run
+      .withSuccessHandler(function (r) {
+        trips.saving = false; $('tfSave').disabled = false; trips.stale = true;
+        if (r.conflict) { $('tfMsg').textContent = '剛被 ' + r.trip.updatedBy + ' 改過，已改為最新內容，請再看一次'; openTripForm(r.trip); return; }
+        closeSheet();
+        if (form.trip) loadTrip(trips.curId, false); else openTrip(r.trip.id);
+        load(true);                                    // the expense form's 旅程 list changed
+      })
+      .withFailureHandler(function (e) { trips.saving = false; $('tfSave').disabled = false; $('tfMsg').textContent = e.message; })
+      .saveTrip(t);
+  };
+
+  function endMode() {
+    var stay = form.itemType === '住宿';
+    // The unused one is disabled, not just hidden: a hidden input still takes part in form validation and a
+    // date input WebKit considers malformed would block the submit with no visible message.
+    $('ifEnd').hidden = stay; $('ifEnd').disabled = stay;
+    $('ifEndDate').hidden = !stay; $('ifEndDate').disabled = !stay;
+    $('ifEndL').textContent = stay ? '退房日' : '結束'; $('ifDateL').textContent = stay ? '入住日' : '日期（空＝候選）'; $('ifStartL').textContent = stay ? '入住時間' : '開始';
+  }
+  function openItemForm(i) {
+    var L = lists(); form.item = i || null;
+    $('ifTitle').textContent = i ? '編輯項目' : '新項目';
+    form.itemType = i ? i.type : (form.itemType || L.types[0]); form.itemCur = i ? i.currency : (trips.cur ? trips.cur.trip.currency : 'USD'); form.itemStatus = i ? i.status : '待訂';
+    pick('ifType', L.types, 'itemType', endMode); pick('ifCur', L.currencies, 'itemCur'); pick('ifStatus', L.itemStatuses, 'itemStatus');
+    options($('ifOwner'), [''].concat(L.owners), i ? i.owner : '');
+    $('ifName').value = i ? i.title : ''; $('ifDate').value = i ? i.date : ''; $('ifStart').value = i ? i.start : '';
+    var endIsDate = i && /^\d{4}-\d{2}-\d{2}$/.test(i.end);
+    $('ifEnd').value = i && !endIsDate ? i.end : ''; $('ifEndDate').value = endIsDate ? i.end : '';
+    $('ifPlace').value = i ? i.place : ''; $('ifAmount').value = i ? i.amount : ''; $('ifCond').value = i ? i.cond : ''; $('ifRef').value = i ? i.ref : ''; $('ifNote').value = i ? i.note : '';
+    $('ifDrop').hidden = !i || i.status === '取消'; $('ifExpense').hidden = !i;
+    setFormPhoto(i ? i.photo : '', null);
+    if (i && i.photo) {
+      var c = cacheGet('ph.' + i.photo); if (c && c.t) showFormPhoto(c.t);
+      fetchPhoto(i.photo, function (url) { if (url && form.itemPhoto === i.photo) showFormPhoto(url); });
+    }
+    endMode();
+    openSheet('item');
+  }
+  // form.itemPhoto = Drive file id saved with the item; '' = none. The preview shows a local data URL.
+  function setFormPhoto(id, dataUrl) {
+    form.itemPhoto = id || '';
+    $('ifPhotoImg').hidden = true; $('ifPhotoImg').removeAttribute('src');
+    $('ifPhotoDrop').hidden = !form.itemPhoto; $('ifPhotoBtn').textContent = form.itemPhoto ? '📷 換照片' : '📷 加照片';
+    $('ifPhotoSt').textContent = form.itemPhoto && !dataUrl ? '載入中…' : '';
+    if (dataUrl) showFormPhoto(dataUrl);
+  }
+  function showFormPhoto(url) { $('ifPhotoImg').src = url; $('ifPhotoImg').hidden = false; $('ifPhotoSt').textContent = ''; }
+  $('ifPhotoBtn').onclick = function () { if (!form.photoBusy) $('ifPhotoFile').click(); };
+  $('ifPhotoDrop').onclick = function () { setFormPhoto('', null); };
+  $('ifPhotoFile').onchange = function () {
+    var file = this.files && this.files[0]; this.value = '';
+    if (!file || form.photoBusy) return;
+    form.photoBusy = true; $('ifPhotoSt').textContent = '處理照片中…'; $('ifSave').disabled = true;
+    shrink(file, 1200, function (data) {
+      if (!data) { form.photoBusy = false; $('ifSave').disabled = false; $('ifPhotoSt').textContent = '無法讀取這張照片'; return; }
+      var local = 'data:image/jpeg;base64,' + data;
+      google.script.run
+        .withSuccessHandler(function (up) {
+          form.photoBusy = false; $('ifSave').disabled = false;
+          if (trips.formOf !== 'item') return;                       // the form was closed meanwhile
+          setFormPhoto(up.fileId, local);
+          photos.mem[up.fileId] = local;
+          thumbOf(local, 160, function (t) { if (t) cachePut('ph.' + up.fileId, { t: t }); });
+          $('ifPhotoSt').textContent = '已上傳，儲存項目後生效';
+        })
+        .withFailureHandler(function (err) { form.photoBusy = false; $('ifSave').disabled = false; $('ifPhotoSt').textContent = '上傳失敗：' + err.message; })
+        .uploadReceipt({ data: data, mime: 'image/jpeg' }, 'trip');
+    });
+  };
+  $('itemNew').onclick = function () { if (trips.cur) openItemForm(null); };
+  $('itemForm').onsubmit = function (ev) {
+    ev.preventDefault();
+    if (trips.saving || !trips.cur) return;
+    if (!$('ifName').value.trim()) { $('ifMsg').textContent = '請填標題'; $('ifName').focus(); return; }
+    var stay = form.itemType === '住宿';
+    var i = { trip: trips.cur.trip.id, type: form.itemType, title: $('ifName').value, date: $('ifDate').value, start: $('ifStart').value,
+              end: stay ? $('ifEndDate').value : $('ifEnd').value, place: $('ifPlace').value, note: $('ifNote').value, ref: $('ifRef').value,
+              cond: $('ifCond').value, amount: $('ifAmount').value, currency: form.itemCur, status: form.itemStatus, owner: $('ifOwner').value,
+              photo: form.itemPhoto || '' };
+    if (form.photoBusy) { $('ifMsg').textContent = '照片上傳中，請稍候'; return; }
+    if (form.item) { i.id = form.item.id; i.updatedAt = form.item.updatedAt; }
+    trips.saving = true; $('ifSave').disabled = true; $('ifMsg').textContent = '儲存中…';
+    google.script.run
+      .withSuccessHandler(function (r) {
+        trips.saving = false; $('ifSave').disabled = false; trips.stale = true;
+        if (r.conflict) { $('ifMsg').textContent = '剛被 ' + r.item.updatedBy + ' 改過，已改為最新內容，請再看一次'; openItemForm(r.item); return; }
+        closeSheet(); loadTrip(trips.curId, false);
+      })
+      .withFailureHandler(function (e) { trips.saving = false; $('ifSave').disabled = false; $('ifMsg').textContent = e.message; })
+      .saveItem(i);
+  };
+  $('ifDrop').onclick = function () {
+    if (!form.item || trips.saving) return;
+    trips.saving = true; $('ifMsg').textContent = '取消中…';
+    google.script.run
+      .withSuccessHandler(function (r) { trips.saving = false; trips.stale = true; if (r.conflict) { $('ifMsg').textContent = '剛被 ' + r.item.updatedBy + ' 改過'; openItemForm(r.item); return; } closeSheet(); loadTrip(trips.curId, false); })
+      .withFailureHandler(function (e) { trips.saving = false; $('ifMsg').textContent = e.message; })
+      .cancelItem(form.item.id, form.item.updatedAt);
+  };
+  // 記一筆: carry the item into the expense form (amount, currency, title, category, trip) for review there.
+  $('ifExpense').onclick = function () {
+    var i = form.item; if (!i || !init) return;
+    closeSheet();
+    if (i.amount !== '') $('amount').value = i.amount;
+    if (init.currencies.indexOf(i.currency) >= 0) setCurrency(i.currency);
+    $('item').value = i.title;
+    var cat = TYPE_CATEGORY[i.type]; if (cat && init.categories.indexOf(cat) >= 0) { state.category = cat; drawCategories(); }
+    if (i.date) { $('date').value = i.date; state.dateTouched = true; }
+    $('trip').value = trips.cur.trip.id;
+    $('estimate').checked = i.status !== '已付';
+    showTab('entry');
+  };
+  $('tripExportBtn').onclick = function () {
+    if (!trips.curId) return;
+    msgTrip('產生筆記中…');
+    google.script.run
+      .withSuccessHandler(function (r) {
+        var done = function (how) { msgTrip('已' + how + '：' + r.title + '.md（貼進 vault Personal Life/Traveling/Trips/）'); };
+        if (navigator.share) navigator.share({ title: r.title, text: r.markdown }).then(function () { done('分享'); }, function () { copyText(r.markdown, done); });
+        else copyText(r.markdown, done);
+      })
+      .withFailureHandler(function (e) { msgTrip(e.message); })
+      .exportTrip(trips.curId);
+  };
+  function copyText(text, done) {
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { done('複製'); }, function () { msgTrip('無法複製，請用分享'); });
+    else msgTrip('這個瀏覽器無法複製');
+  }
 
   load(false);
