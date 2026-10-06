@@ -202,3 +202,10 @@
   .export-box .chips { margin:6px 0; }
   .export-box textarea { width:100%; height:140px; margin-top:4px; padding:8px; font:12px/1.4 ui-monospace, Menlo, monospace;
                          color:var(--fg); background:var(--bg); border:1px solid var(--line); border-radius:10px; resize:vertical; }
+  /* participants: tag on the card, who-filter chips, per-person picker in the form */
+  .timeline .it .who { display:inline-block; margin-left:6px; padding:0 6px; border-radius:6px; font-size:11px; line-height:18px; color:var(--fg);
+                       background:color-mix(in srgb, var(--c7) 16%, transparent); box-shadow:inset 3px 0 0 var(--c7); vertical-align:1px; white-space:nowrap; }
+  .timeline .it.other { opacity:.75; }
+  .timeline .it.other .who { background:color-mix(in srgb, var(--cother) 24%, transparent); box-shadow:inset 3px 0 0 var(--cother); }
+  .who-filter { margin:2px 0 8px; }
+  .who-pick { margin-top:6px; padding:8px; border:1px dashed var(--line); border-radius:10px; }
