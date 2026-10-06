@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-title" content="Lovely Home">
 <meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#151514" media="(prefers-color-scheme: dark)">
-<link rel="stylesheet" href="app.css?v=274273f0">
+<link rel="stylesheet" href="app.css?v=4b98c5b5">
 </head>
 <body class="gated">
 <div id="pairGate" class="gate">
@@ -107,6 +107,7 @@
       <div><label>付款人</label><select id="payer"></select></div>
     </div>
     <label>付款方式</label><select id="method"></select>
+    <div id="tripRow" hidden><label>旅程</label><select id="trip"></select></div>
     <details>
       <summary>更多欄位（匯率、補助來源、單號、備註）</summary>
       <label>匯率（換台幣）</label><input id="rate" type="number" inputmode="decimal" step="0.01" min="0">
@@ -116,6 +117,7 @@
     </details>
     <label class="pending"><input type="checkbox" id="pending">待補（之後依收據補齊）</label>
     <label class="pending"><input type="checkbox" id="oneTime">一次性支出（不計入每月預算）</label>
+    <label class="pending"><input type="checkbox" id="estimate">預估／未付（拿到收據後改實付）</label>
     <button class="primary" id="submit" type="submit" disabled>記一筆</button>
     <div class="msg" id="msg"></div>
   </form>
@@ -126,7 +128,121 @@
   </section>
   </div>
 
+  <!-- 旅程: trip list → one trip (day timeline, undated pool, checklist, spend). Data on the 旅程/行程項目/清單 tabs. -->
+  <div id="tabTrip" class="tab" hidden>
+    <div id="tripList">
+      <section class="card">
+        <div class="pie-head"><span class="card-t">旅程</span><button type="button" class="chip" id="tripNew">＋ 新旅程</button></div>
+        <div class="note" id="tripsNote" hidden></div>
+        <ul id="trips"><li class="loading">載入中…</li></ul>
+      </section>
+    </div>
+    <div id="tripDetail" hidden>
+      <section class="card">
+        <button type="button" class="back" id="tripBack">‹ 所有旅程</button>
+        <div class="trip-title" id="tdName"></div>
+        <div class="trip-meta" id="tdMeta"></div>
+        <div class="stats">
+          <div class="stat"><div class="k">已記帳</div><div class="v" id="tdSpent">—</div></div>
+          <div class="stat"><div class="k">預估／未付</div><div class="v" id="tdEst">—</div></div>
+          <div class="stat"><div class="k">預算</div><div class="v" id="tdBudget">—</div><div class="d" id="tdLeft"></div></div>
+          <div class="stat"><div class="k">待訂</div><div class="v" id="tdTodo">—</div></div>
+        </div>
+        <div class="chips trip-actions">
+          <button type="button" class="chip" id="tripEdit">編輯旅程</button>
+          <button type="button" class="chip" id="tripExportBtn">匯出成筆記</button>
+        </div>
+        <div class="note" id="tdNote" hidden></div>
+      </section>
+      <section class="card">
+        <div class="pie-head"><span class="card-t">行程</span><button type="button" class="chip" id="itemNew">＋ 項目</button></div>
+        <div id="timeline" class="timeline"></div>
+      </section>
+      <section class="card" id="poolCard">
+        <div class="card-t">候選（還沒排日期）</div>
+        <div id="pool" class="timeline"></div>
+      </section>
+      <section class="card">
+        <div class="card-t">清單</div>
+        <ul id="checks"></ul>
+        <form id="checkForm" class="check-add" autocomplete="off"><input id="checkText" placeholder="新增清單項目…" maxlength="120"><button type="submit" class="chip">加入</button></form>
+      </section>
+      <section class="card">
+        <div class="pie-head"><span class="card-t">花費</span><span class="trend-sel" id="tdSpendTotal"></span></div>
+        <ul id="tripSpend"></ul>
+      </section>
+    </div>
+  </div>
+
 </main>
+
+<!-- Bottom sheet: one trip form and one item form, shown one at a time. -->
+<div id="sheet" class="sheet" hidden>
+  <div class="sheet-bg" id="sheetBg"></div>
+  <form class="sheet-box" id="tripForm" autocomplete="off" novalidate hidden>
+    <div class="sheet-t" id="tfTitle">新旅程</div>
+    <label>名稱</label><input id="tfName" required maxlength="80" placeholder="例如：Austin F1">
+    <label>性質</label><div class="chips" id="tfKind"></div>
+    <div class="row2">
+      <div><label>開始日</label><input id="tfStart" type="date"></div>
+      <div><label>結束日</label><input id="tfEnd" type="date"></div>
+    </div>
+    <div class="row2">
+      <div><label>起點</label><input id="tfOrigin" maxlength="40" placeholder="Plano"></div>
+      <div><label>旅伴</label><input id="tfComp" maxlength="120" placeholder="Ronald + Livia + Rica"></div>
+    </div>
+    <div class="row2">
+      <div><label>預算</label><input id="tfBudget" type="number" inputmode="decimal" step="0.01" min="0"></div>
+      <div><label>幣別</label><div class="chips" id="tfCur"></div></div>
+    </div>
+    <div class="row2">
+      <div><label>補助來源</label><select id="tfFunding"></select></div>
+      <div><label>狀態</label><select id="tfStatus"></select></div>
+    </div>
+    <label>備註</label><input id="tfNote" maxlength="300">
+    <div class="sheet-btns"><button type="button" class="chip" id="tfCancel">取消</button><button type="submit" class="primary" id="tfSave">儲存</button></div>
+    <div class="msg" id="tfMsg"></div>
+  </form>
+  <form class="sheet-box" id="itemForm" autocomplete="off" novalidate hidden>
+    <div class="sheet-t" id="ifTitle">新項目</div>
+    <label>類型</label><div class="chips" id="ifType"></div>
+    <label>標題</label><input id="ifName" required maxlength="120" placeholder="例如：Home2 Suites Pflugerville">
+    <div class="row2">
+      <div><label id="ifDateL">日期（空＝候選）</label><input id="ifDate" type="date"></div>
+      <div><label id="ifStartL">開始</label><input id="ifStart" type="time"></div>
+    </div>
+    <div class="row2">
+      <div><label id="ifEndL">結束</label><input id="ifEnd" type="time"><input id="ifEndDate" type="date" hidden></div>
+      <div><label>地點</label><input id="ifPlace" maxlength="120"></div>
+    </div>
+    <div class="row2">
+      <div><label>預估金額</label><input id="ifAmount" type="number" inputmode="decimal" step="0.01" min="0"></div>
+      <div><label>幣別</label><div class="chips" id="ifCur"></div></div>
+    </div>
+    <label>狀態</label><div class="chips" id="ifStatus"></div>
+    <div class="row2">
+      <div><label>負責人</label><select id="ifOwner"></select></div>
+      <div><label>條件</label><input id="ifCond" maxlength="200" placeholder="可免費取消、late check-in"></div>
+    </div>
+    <label>確認號／連結</label><input id="ifRef" maxlength="300">
+    <label>說明</label><input id="ifNote" maxlength="500">
+    <label>照片（一張：票券、確認畫面、座位圖）</label>
+    <div class="photo-row">
+      <img id="ifPhotoImg" class="photo-prev" alt="" hidden>
+      <button type="button" class="chip" id="ifPhotoBtn">📷 加照片</button>
+      <button type="button" class="chip" id="ifPhotoDrop" hidden>移除</button>
+      <span class="st" id="ifPhotoSt"></span>
+      <input type="file" id="ifPhotoFile" accept="image/*" hidden>
+    </div>
+    <div class="sheet-btns">
+      <button type="button" class="chip" id="ifCancel">關閉</button>
+      <button type="button" class="chip danger" id="ifDrop" hidden>取消此項</button>
+      <button type="button" class="chip" id="ifExpense" hidden>記一筆</button>
+      <button type="submit" class="primary" id="ifSave">儲存</button>
+    </div>
+    <div class="msg" id="ifMsg"></div>
+  </form>
+</div>
 
 <nav class="tabbar" id="tabbar">
   <button type="button" data-tab="dash" class="on">
@@ -137,8 +253,12 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16v4zM14 6l4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
     <span>記帳</span>
   </button>
+  <button type="button" data-tab="trip">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-11a6 6 0 0 1 12 0c0 5.7-6 11-6 11z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+    <span>旅程</span>
+  </button>
 </nav>
-<script src="shim.js?v=7b019385"></script>
-<script src="app.js?v=b76fb4d7"></script>
+<script src="shim.js?v=2c47dcc4"></script>
+<script src="app.js?v=32f63dc8"></script>
 </body>
 </html>
