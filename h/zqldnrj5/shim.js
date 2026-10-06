@@ -20,8 +20,18 @@
     return fetch(API_URL, { method: 'POST', body: JSON.stringify(body), redirect: 'follow' })
       .then(function (r) { return r.json(); });
   }
+  // Reads are retried once on a transport failure (the anonymous Apps Script pipeline occasionally answers with an
+  // HTML error page or drops a request). Writes are never retried here: add/undo carry their own reqId/sig protection.
+  var RETRY_ONCE = { init: 1, agenda: 1, trips: 1, trip: 1, photo: 1, whoami: 1 };
   function call(action, args) {
-    return post({ action: action, token: getToken(), args: args }).then(function (j) {
+    var body = { action: action, token: getToken(), args: args };
+    var attempt = function (n) {
+      return post(body).then(null, function (err) {
+        if (n === 0 && RETRY_ONCE[action]) return new Promise(function (r) { setTimeout(r, 800); }).then(function () { return attempt(1); });
+        throw new Error('連線失敗，請稍後再試');
+      });
+    };
+    return attempt(0).then(function (j) {
       if (!j.ok) {
         var e = new Error(j.error || '伺服器錯誤'); e.code = j.code;
         if (j.code === 'AUTH') { setToken(null); showGate(true); }
