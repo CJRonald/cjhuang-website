@@ -923,6 +923,10 @@
     pick('ifType', L.types, 'itemType', endMode); pick('ifCur', L.currencies, 'itemCur'); pick('ifStatus', L.itemStatuses, 'itemStatus');
     options($('ifOwner'), [''].concat(L.owners), i ? i.owner : '');
     form.itemWho = i ? (i.who && i.who.length ? i.who.slice() : people().slice()) : people().slice();
+    // Names typed in the sheet that are not on the roster stay on the item until someone removes them here;
+    // they are shown as chips and sent back as they are, so the API refuses the save instead of the app
+    // dropping them silently.
+    form.whoExtra = form.itemWho.filter(function (n) { return people().indexOf(n) < 0; });
     form.whoCustom = false;
     drawWho();
     $('ifName').value = i ? i.title : ''; $('ifDate').value = i ? i.date : ''; $('ifStart').value = i ? i.start : '';
@@ -960,9 +964,10 @@
     pickEl.hidden = !(form.whoCustom || !cur);
     if (!pickEl.hidden) {
       pickEl.innerHTML = '';
-      people().forEach(function (n) {
+      people().concat(form.whoExtra || []).forEach(function (n) {
         var b = document.createElement('button'); b.type = 'button';
-        b.className = 'chip' + (form.itemWho.indexOf(n) >= 0 ? ' on' : ''); b.textContent = (PERSON_ICON[n] || '') + n;
+        var extra = people().indexOf(n) < 0;
+        b.className = 'chip' + (form.itemWho.indexOf(n) >= 0 ? ' on' : ''); b.textContent = (PERSON_ICON[n] || '') + n + (extra ? '（不在名單）' : '');
         b.onclick = function () {
           var k = form.itemWho.indexOf(n);
           if (k >= 0) form.itemWho.splice(k, 1); else form.itemWho.push(n);
@@ -1013,7 +1018,7 @@
     var i = { trip: trips.cur.trip.id, type: form.itemType, title: $('ifName').value, date: $('ifDate').value, start: $('ifStart').value,
               end: stay ? $('ifEndDate').value : $('ifEnd').value, place: $('ifPlace').value, note: $('ifNote').value, ref: $('ifRef').value,
               cond: $('ifCond').value, amount: $('ifAmount').value, currency: form.itemCur, status: form.itemStatus, owner: $('ifOwner').value,
-              photo: form.itemPhoto || '', who: people().filter(function (n) { return form.itemWho.indexOf(n) >= 0; }) };
+              photo: form.itemPhoto || '', who: people().concat(form.whoExtra || []).filter(function (n) { return form.itemWho.indexOf(n) >= 0; }) };
     if (!i.who.length) { $('ifMsg').textContent = '請選至少一位參加者'; return; }
     if (form.photoBusy) { $('ifMsg').textContent = '照片上傳中，請稍候'; return; }
     if (form.item) { i.id = form.item.id; i.rev = form.item.rev; }
