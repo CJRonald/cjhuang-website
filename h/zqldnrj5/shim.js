@@ -22,7 +22,7 @@
   }
   // Reads are retried once on a transport failure (the anonymous Apps Script pipeline occasionally answers with an
   // HTML error page or drops a request). Writes are never retried here: add/undo carry their own reqId/sig protection.
-  var RETRY_ONCE = { init: 1, agenda: 1, trips: 1, trip: 1, photo: 1, whoami: 1 };
+  var RETRY_ONCE = { init: 1, agenda: 1, trips: 1, trip: 1, photo: 1, whoami: 1, recurring: 1 };
   function call(action, args) {
     var body = { action: action, token: getToken(), args: args };
     var attempt = function (n) {
@@ -55,6 +55,9 @@
     cancelItem: ['itemCancel', function (id, rev) { return { id: id, rev: rev }; }],
     saveCheck: ['checkSave', function (c) { return { check: c }; }],
     exportTrip: ['tripExport', function (id) { return { id: id }; }],
+    getRecurring: ['recurring', function () { return {}; }],
+    saveRecurring: ['recurringSave', function (i) { return { item: i }; }],
+    runRecurring: ['recurringRun', function () { return {}; }],
   };
   window.google = { script: { get run() {
     var ok = function () {}, fail = function (e) { console.error(e); };
