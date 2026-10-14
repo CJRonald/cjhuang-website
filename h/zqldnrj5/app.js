@@ -53,6 +53,7 @@
              '<div class="amt">' + esc(r.amount) + ' ' + esc(r.currency) + '<div class="meta">' + (r.twd ? 'NT$' + esc(r.twd) : '') + '</div></div></li>';
     }).join('') || '<li class="loading">尚無資料</li>';
     $('submit').disabled = !!state.busy;   // a refresh during a scan or save must not re-enable it
+    loadRecurring(true);                   // first paint of the 固定支出 card; later refreshes are soft (5 min)
   }
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -857,12 +858,12 @@
   // ---- bottom sheet forms ----
   var form = { trip: null, item: null, tripKind: null, tripCur: 'USD', itemType: null, itemCur: 'USD', itemStatus: '待訂' };
   function openSheet(which) {
-    $('sheet').hidden = false; $('tripForm').hidden = which !== 'trip'; $('itemForm').hidden = which !== 'item';
+    $('sheet').hidden = false; $('tripForm').hidden = which !== 'trip'; $('itemForm').hidden = which !== 'item'; $('recForm').hidden = true;
     trips.formOf = which; document.body.style.overflow = 'hidden';
   }
   function closeSheet() {
     form.gen = (form.gen || 0) + 1;
-    $('sheet').hidden = true; $('tripForm').hidden = true; $('itemForm').hidden = true;
+    $('sheet').hidden = true; $('tripForm').hidden = true; $('itemForm').hidden = true; $('recForm').hidden = true;
     trips.formOf = null; document.body.style.overflow = ''; $('tfMsg').textContent = ''; $('ifMsg').textContent = '';
   }
   $('sheetBg').onclick = closeSheet; $('tfCancel').onclick = closeSheet; $('ifCancel').onclick = closeSheet;
@@ -1098,5 +1099,98 @@
     else msgTrip(ok ? '已複製' : '無法複製，請直接選取下方文字');
   };
   $('exportClose').onclick = function () { $('exportBox').hidden = true; };
+
+  // ---- 固定支出: rows of the 固定支出 tab, shown on the Dashboard. The daily trigger (06:00) writes each due item
+  // into 支出 as an ordinary row (已付＋待補 when auto-debited, 預估 otherwise); 現在產生 does the same on demand.
+  var recur = { data: null, at: 0, loading: false, saving: false, item: null, cur: 'USD', period: '每月', status: '啟用' };
+  function loadRecurring(soft) {
+    if (!init || typeof google.script.run.getRecurring !== 'function') return;   // an older transport: leave the card at 載入中
+    if (recur.loading || (soft && Date.now() - recur.at < 5 * 60 * 1000)) return;
+    recur.loading = true;
+    google.script.run
+      .withSuccessHandler(function (r) { recur.loading = false; recur.at = Date.now(); recur.data = r; drawRecurring(); })
+      .withFailureHandler(function (e) { recur.loading = false; $('recurList').innerHTML = '<li class="loading">讀取失敗：' + esc(e.message) + '</li>'; })
+      .getRecurring();
+  }
+  function recurMoney(i) { return (i.currency === 'USD' ? 'US$' : i.currency === 'TWD' ? 'NT$' : i.currency + ' ') + Number(i.amount).toLocaleString('en-US'); }
+  function drawRecurring() {
+    var r = recur.data; if (!r) return;
+    var td = r.today || today();
+    $('recurList').innerHTML = r.items.map(function (i) {
+      var on = i.status === '啟用', due = on && i.next && i.next <= td;
+      var meta = [i.period, i.next ? (due ? '<span class="due">到期 ' + esc(i.next) + '</span>' : '下次 ' + esc(i.next)) : '', esc(i.method), esc(i.payer),
+                  i.auto === '是' ? '自動扣款' : '', i.fixed === '否' ? '金額估計' : '', on ? '' : esc(i.status)].filter(Boolean).join(' · ');
+      return '<li data-id="' + esc(i.id) + '"' + (on ? '' : ' class="off"') + '><div class="tn"><span>' + esc(i.item) + '</span><span class="amt">' + esc(recurMoney(i)) + '</span></div>' +
+             '<div class="meta">' + catTag(i.category) + ' ' + meta + '</div></li>';
+    }).join('') || '<li class="loading">還沒有固定支出。按「＋ 新增」加入房租、電話、網路等每期都會出現的項目。</li>';
+  }
+  function recurNote(text) { var n = $('recurNote'); n.hidden = !text; n.textContent = text || ''; }
+  $('recurList').onclick = function (ev) {
+    var li = ev.target.closest('[data-id]'); if (!li || !recur.data) return;
+    var it = recur.data.items.filter(function (i) { return i.id === li.getAttribute('data-id'); })[0];
+    if (it) openRecurForm(it);
+  };
+  $('recurRun').onclick = function () {
+    if (recur.saving) return;
+    recur.saving = true; $('recurRun').disabled = true; recurNote('檢查到期項目…');
+    google.script.run
+      .withSuccessHandler(function (r) {
+        recur.saving = false; $('recurRun').disabled = false;
+        var g = r.generated || [];
+        recurNote(g.length ? '已記 ' + g.length + ' 筆：' + g.map(function (x) { return x.item + '（' + x.date + '，' + x.status + '）'; }).join('、')
+                           : '沒有到期的項目（今天 ' + r.today + '，啟用 ' + r.checked + ' 項）');
+        recur.at = 0; loadRecurring(false);
+        if (g.length) load(true);                       // the ledger changed: refresh the dashboard and 最近 10 筆
+      })
+      .withFailureHandler(function (e) { recur.saving = false; $('recurRun').disabled = false; recurNote(e.message); })
+      .runRecurring();
+  };
+  function recurLists() {
+    var L = recur.data && recur.data.lists;
+    return L || { categories: init.categories, currencies: init.currencies, payers: init.payers, methods: init.methods, fundings: init.fundings,
+                  periods: ['每月', '每季', '每年'], statuses: ['啟用', '暫停', '結束'] };
+  }
+  function openRecurForm(i) {
+    var L = recurLists(); recur.item = i || null;
+    $('rfTitle').textContent = i ? '編輯固定支出' : '新固定支出';
+    $('rfItem').value = i ? i.item : ''; $('rfAmount').value = i ? i.amount : ''; $('rfNext').value = i ? i.next : ''; $('rfUntil').value = i ? i.until : '';
+    $('rfNote').value = i ? i.note : '';
+    recur.cur = i ? i.currency : 'USD'; recur.period = i ? i.period : '每月'; recur.status = i ? i.status : '啟用';
+    pickRecur('rfCur', L.currencies, 'cur'); pickRecur('rfPeriod', L.periods, 'period'); pickRecur('rfStatus', L.statuses, 'status');
+    options($('rfCategory'), L.categories, i ? i.category : (L.categories.indexOf('住房') >= 0 ? '住房' : L.categories[0]));
+    options($('rfPayer'), L.payers, i ? i.payer : (init.me && init.me.payer) || L.payers[0]);
+    options($('rfMethod'), L.methods, i ? i.method : (store('method') || L.methods[0]));
+    options($('rfFunding'), L.fundings, i ? i.funding : '自付');
+    $('rfAuto').checked = !!i && i.auto === '是'; $('rfFixed').checked = !i || i.fixed !== '否';
+    $('rfMsg').textContent = '';
+    $('sheet').hidden = false; $('recForm').hidden = false; document.body.style.overflow = 'hidden';
+  }
+  function pickRecur(id, list, key) { chips($(id), list, recur[key], function (v) { recur[key] = v; pickRecur(id, list, key); }); }
+  function closeRecurForm() { $('recForm').hidden = true; if ($('tripForm').hidden && $('itemForm').hidden) { $('sheet').hidden = true; document.body.style.overflow = ''; } }
+  $('rfCancel').onclick = closeRecurForm;
+  $('sheetBg').addEventListener('click', closeRecurForm);
+  $('recurNew').onclick = function () { if (init) openRecurForm(null); };
+  $('recForm').onsubmit = function (ev) {
+    ev.preventDefault();
+    if (recur.saving) return;
+    if (!$('rfItem').value.trim()) { $('rfMsg').textContent = '請填項目'; $('rfItem').focus(); return; }
+    if (!(Number($('rfAmount').value) > 0)) { $('rfMsg').textContent = '金額需大於 0'; $('rfAmount').focus(); return; }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test($('rfNext').value)) { $('rfMsg').textContent = '請填下次日期'; $('rfNext').focus(); return; }
+    var i = { item: $('rfItem').value, amount: $('rfAmount').value, currency: recur.cur, category: $('rfCategory').value, period: recur.period,
+              next: $('rfNext').value, until: $('rfUntil').value, payer: $('rfPayer').value, method: $('rfMethod').value, funding: $('rfFunding').value,
+              auto: $('rfAuto').checked ? '是' : '否', fixed: $('rfFixed').checked ? '是' : '否', status: recur.status, note: $('rfNote').value };
+    if (recur.item) { i.id = recur.item.id; i.rev = recur.item.rev; }
+    recur.saving = true; $('rfSave').disabled = true; $('rfMsg').textContent = '儲存中…';
+    google.script.run
+      .withSuccessHandler(function (r) {
+        recur.saving = false; $('rfSave').disabled = false;
+        if (r.conflict) { $('rfMsg').textContent = '剛被 ' + r.item.updatedBy + ' 改過，已改為最新內容，請再看一次'; openRecurForm(r.item); return; }
+        closeRecurForm(); recur.at = 0; loadRecurring(false);
+      })
+      .withFailureHandler(function (e) { recur.saving = false; $('rfSave').disabled = false; $('rfMsg').textContent = e.message; })
+      .saveRecurring(i);
+  };
+  $('tabbar').addEventListener('click', function () { if (!$('tabDash').hidden) loadRecurring(true); });
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible' && !$('tabDash').hidden) loadRecurring(true); });
 
   load(false);
