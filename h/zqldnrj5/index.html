@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-title" content="Lovely Home">
 <meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#151514" media="(prefers-color-scheme: dark)">
-<link rel="stylesheet" href="app.css?v=d5bee279">
+<link rel="stylesheet" href="app.css?v=415f11cc">
 </head>
 <body class="gated">
 <div id="pairGate" class="gate">
@@ -61,6 +61,13 @@
   </section>
 
   <section class="card note-card" id="pendingCard"></section>
+
+  <!-- 固定支出: rows of the 固定支出 tab. The daily trigger writes each due item into 支出; 現在產生 does it on demand. -->
+  <section class="card" id="recurCard">
+    <div class="pie-head"><span class="card-t">固定支出</span><span class="chips"><button type="button" class="chip" id="recurRun">現在產生</button><button type="button" class="chip" id="recurNew">＋ 新增</button></span></div>
+    <div class="note" id="recurNote" hidden></div>
+    <ul id="recurList" class="recur"><li class="loading">載入中…</li></ul>
+  </section>
 
   <section class="card">
     <div class="pie-head"><span class="card-t">每月支出</span><span class="trend-sel" id="trendSel"></span></div>
@@ -257,6 +264,31 @@
     </div>
     <div class="msg" id="ifMsg"></div>
   </form>
+  <form class="sheet-box" id="recForm" autocomplete="off" novalidate hidden>
+    <div class="sheet-t" id="rfTitle">新固定支出</div>
+    <label>項目</label><input id="rfItem" required maxlength="120" placeholder="例如：房租 2207 Glen Forest Ln">
+    <div class="row2">
+      <div><label>金額</label><input id="rfAmount" type="number" inputmode="decimal" step="0.01" min="0"></div>
+      <div><label>幣別</label><div class="chips" id="rfCur"></div></div>
+    </div>
+    <label>類別</label><select id="rfCategory"></select>
+    <label>週期</label><div class="chips" id="rfPeriod"></div>
+    <div class="row2">
+      <div><label>下次日期</label><input id="rfNext" type="date"></div>
+      <div><label>結束日（可空）</label><input id="rfUntil" type="date"></div>
+    </div>
+    <div class="row2">
+      <div><label>付款人</label><select id="rfPayer"></select></div>
+      <div><label>付款方式</label><select id="rfMethod"></select></div>
+    </div>
+    <label>補助來源</label><select id="rfFunding"></select>
+    <label class="pending"><input type="checkbox" id="rfAuto">自動扣款（到期直接記「已付」；否則記「預估」等付清）</label>
+    <label class="pending"><input type="checkbox" id="rfFixed" checked>金額每期相同（取消勾選＝依帳單修正）</label>
+    <label>狀態</label><div class="chips" id="rfStatus"></div>
+    <label>備註</label><input id="rfNote" maxlength="300">
+    <div class="sheet-btns"><button type="button" class="chip" id="rfCancel">關閉</button><button type="submit" class="primary" id="rfSave">儲存</button></div>
+    <div class="msg" id="rfMsg"></div>
+  </form>
 </div>
 
 <nav class="tabbar" id="tabbar">
@@ -273,7 +305,7 @@
     <span>旅程</span>
   </button>
 </nav>
-<script src="shim.js?v=16843542"></script>
-<script src="app.js?v=ba113933"></script>
+<script src="shim.js?v=207e0879"></script>
+<script src="app.js?v=72a59c4e"></script>
 </body>
 </html>
