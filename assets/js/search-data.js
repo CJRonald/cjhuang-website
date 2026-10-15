@@ -92,6 +92,9 @@ ninja.data = [{
           section: "News",},{id: "news-co-investigator-on-a-newly-funded-national-science-and-technology-council-nstc-project-developing-ai-based-prediction-of-bad-split-complications-in-orthognathic-surgery-2026-2027",
           title: 'Co-investigator on a newly funded National Science and Technology Council (NSTC) project developing...',
           description: "",
+          section: "News",},{id: "news-principal-investigator-on-a-newly-funded-national-science-and-technology-council-nstc-project-developing-ai-based-prediction-of-inhalation-injury-in-burn-patients-2026-2027",
+          title: 'Principal investigator on a newly funded National Science and Technology Council (NSTC) project...',
+          description: "",
           section: "News",},{
         id: 'social-email',
         title: 'email',
