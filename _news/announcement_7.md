@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Principal investigator on a newly funded **National Science and Technology Council (NSTC)** project on **multimodal deep learning for inhalation-injury severity prediction in burn patients** (NSTC 115-2314-B-182A-199, 2026–2027). 🎉
+Awarded a **National Science and Technology Council (NSTC)** research grant as principal investigator for an AI project in burn care (2026–2027). 🎉
