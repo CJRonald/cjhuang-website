@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Awarded a **National Science and Technology Council (NSTC)** research grant as principal investigator for an AI project in burn care (2026–2027). 🎉
+Principal investigator on a newly funded **National Science and Technology Council (NSTC)** project developing AI-based prediction of **inhalation injury in burn patients** (2026–2027). 🎉
