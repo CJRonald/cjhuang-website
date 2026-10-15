@@ -7,11 +7,11 @@ nav: true
 nav_order: 4
 ---
 
-I share my work and stay connected with the field through international and domestic conferences, observerships abroad, and peer review for surgical and craniofacial journals — bringing clinical AI to a wider surgical audience and learning from colleagues across institutions.
+I share my work and stay connected with the field through international and domestic conferences, a research fellowship and observerships abroad, and peer review for surgical and craniofacial journals — bringing clinical AI to a wider surgical audience and learning from colleagues across institutions.
 
 ## Board Certifications
 
-Board-certified in **Plastic & Reconstructive Surgery** (2023), **Critical Care Medicine** (2025), **Hand Surgery** (2022), and **Aesthetic Surgery** (2024) by the respective Taiwan specialty societies.
+Board-certified in **General Surgery** (2022), **Hand Surgery** (2022), **Plastic & Reconstructive Surgery** (2023), **Aesthetic Surgery** (2024), and **Critical Care Medicine** (2025) by the respective Taiwan specialty societies; Critical Care Medicine additionally certified as a national specialty by the Ministry of Health and Welfare (2026).
 
 ## Professional Societies
 
@@ -20,6 +20,9 @@ Board-certified in **Plastic & Reconstructive Surgery** (2023), **Critical Care 
 ---
 
 ## Oversea Exchange
+
+**[UT Southwestern Medical Center](https://www.utsouthwestern.edu/){:target="_blank"}.**
+Visiting Research Fellow with Dr. Alex A. Kane, Analytical Imaging and Modeling (AIM) Center, Children's Health / UT Southwestern, Dallas, TX, USA (2026–2027), preceded by a lab visit in April 2026.
 
 **[NYU Langone Health](https://med.nyu.edu/departments-institutes/plastic-surgery/){:target="_blank"}.**
 Observership, Hansjörg Wyss Department of Plastic Surgery, New York, USA (2023).
@@ -41,6 +44,9 @@ Free Paper — *Combined Septal Extension & Derotation Grafts in Asian Rhinoplas
 
 ## Domestic Conference
 
+**2026 · [Taiwan Society of Reconstructive Microsurgery (TSRM)](https://www.twsrm.org.tw/){:target="_blank"} — Microsurgery Camp for Secondary-School Students.**
+Invited Lecturer — *AI Vibe Coding*; *AI Application in Burn and Microsurgery: Chang Gung Experience.*
+
 **2025 · Taiwan Society for Surgery of the Hand (TSSH).**
 
 **2023 · Taiwan Surgical Association.**
@@ -57,4 +63,6 @@ For *Triangular Fossa Cartilage Graft in Rhinoplasty: A Three-Dimensional Anatom
 
 ## Service
 
-Peer reviewer for international journals — *BMC Surgery*, *European Journal of Orthodontics*, *Journal of Robotic Surgery* (Springer Nature), and *Maxillofacial Plastic and Reconstructive Surgery* (Springer Nature).
+Peer reviewer for international journals since 2025, mainly in the Springer Nature / BMC portfolio — *BMC Surgery*, *BMC Medical Imaging*, *BMC Plastic and Reconstructive Surgery*, *BioMedical Engineering OnLine*, *European Journal of Medical Research*, *European Journal of Orthodontics*, *Journal of Robotic Surgery*, *Maxillofacial Plastic and Reconstructive Surgery*, and *Surgical and Radiologic Anatomy* — on rhinoplasty, craniofacial and cleft surgery, breast surgery, and AI in plastic surgery.
+
+Abstract reviewer, [American Burn Association](https://ameriburn.org/){:target="_blank"} 2027 Annual Meeting.
