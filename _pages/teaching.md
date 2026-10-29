@@ -22,7 +22,7 @@ Board-certified in **General Surgery** (2022), **Hand Surgery** (2022), **Plasti
 ## Oversea Exchange
 
 **[UT Southwestern Medical Center](https://www.utsouthwestern.edu/){:target="_blank"}.**
-Visiting Research Fellow with Dr. Alex A. Kane, Analytical Imaging and Modeling (AIM) Center, Children's Health / UT Southwestern, Dallas, TX, USA (2026–2027), preceded by a lab visit in April 2026.
+Visiting Senior Researcher (research fellowship) with mentor Prof. Alex A. Kane, Analytical Imaging and Modeling (AIM) Center, Children's Health / UT Southwestern, Dallas, TX, USA (2026–2027), preceded by a lab visit in April 2026.
 
 **[NYU Langone Health](https://med.nyu.edu/departments-institutes/plastic-surgery/){:target="_blank"}.**
 Observership, Hansjörg Wyss Department of Plastic Surgery, New York, USA (2023).

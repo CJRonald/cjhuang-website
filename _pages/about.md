@@ -26,7 +26,7 @@ latest_posts:
 contact_email: contact@cjhuang.com
 ---
 
-I am a **plastic and reconstructive surgeon** and **burn intensivist** at [Linkou Chang Gung Memorial Hospital](https://www.cgmh.org.tw/eng), and a Ph.D. student in Biomedical Informatics at [National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/). From October 2026 to October 2027 I am a **Visiting Research Fellow** at [UT Southwestern Medical Center](https://www.utsouthwestern.edu/) in Dallas, working with Dr. Alex A. Kane at the Analytical Imaging and Modeling (AIM) Center, Children's Health, on AI for craniofacial and pediatric plastic surgery.
+I am a **plastic and reconstructive surgeon** and **burn intensivist** at [Linkou Chang Gung Memorial Hospital](https://www.cgmh.org.tw/eng), and a Ph.D. student in Biomedical Informatics at [National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/). From October 2026 to October 2027 I am a **Visiting Senior Researcher** at [UT Southwestern Medical Center](https://www.utsouthwestern.edu/) in Dallas, a research fellowship with mentor Prof. Alex A. Kane at the Analytical Imaging and Modeling (AIM) Center, Children's Health, on AI for craniofacial and pediatric plastic surgery.
 
 My clinical practice spans acute and reconstructive **burn care**, **rhinoplasty**, **craniofacial surgery**, and **microsurgery**. Alongside the operating room, I build **clinically grounded AI** — translating problems I meet at the bedside into models that are actually usable: burn wound segmentation and TBSA estimation, inhalation-injury risk prediction, craniofacial / orthognathic image analysis, and quantitative rhinoplasty planning.
 
