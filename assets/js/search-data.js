@@ -95,6 +95,9 @@ ninja.data = [{
           section: "News",},{id: "news-principal-investigator-on-a-newly-funded-national-science-and-technology-council-nstc-project-developing-ai-based-prediction-of-inhalation-injury-in-burn-patients-2026-2027",
           title: 'Principal investigator on a newly funded National Science and Technology Council (NSTC) project...',
           description: "",
+          section: "News",},{id: "news-joined-ut-southwestern-medical-center-in-dallas-as-a-visiting-senior-researcher-a-research-fellowship-with-mentor-prof-alex-a-kane-at-the-analytical-imaging-and-modeling-aim-center-children-s-health-working-on-ai-for-craniofacial-and-pediatric-plastic-surgery-2026-2027",
+          title: 'Joined UT Southwestern Medical Center in Dallas as a Visiting Senior Researcher, a...',
+          description: "",
           section: "News",},{
         id: 'social-email',
         title: 'email',
