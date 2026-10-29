@@ -36,6 +36,12 @@ Machine-learning and multimodal models for early risk stratification of inhalati
 **Craniofacial deep learning.**
 Landmark detection and segmentation on CBCT and 3D imaging — with a focus on the systematic errors that off-the-shelf Western models make on Asian Class III anatomy.
 
+**Facial soft-tissue prediction after craniofacial surgery.**
+A deep-learning framework for predicting postoperative facial soft tissue in Asian patients from 3D facial imaging, with orthognathic surgery as the first application — the focus of my 2026–2027 research fellowship with Prof. Alex A. Kane at the Analytical Imaging and Modeling (AIM) Center, UT Southwestern.
+
+**Free-flap perfusion monitoring.**
+Deep-learning assessment of free-flap circulation from postoperative flap photographs, and frame-by-frame segmentation of intraoperative indocyanine green (ICG) fluorescence angiography.
+
 **Multimodal clinical AI.**
 Vision–language and NLP methods for extracting structure from clinical narratives, imaging, and structured records.
 
@@ -46,8 +52,8 @@ Vision–language and NLP methods for extracting structure from clinical narrati
 Live, interactive demos of tools coming out of the lab — hosted on Hugging Face Spaces. The full collection lives on the <a href="https://lab.cjhuang.com/" target="_blank">VDI Lab site</a>.
 
 - **Burn wound segmentation** — Deep Supervision UNet++ (IoU 0.85) → [demo](https://huggingface.co/spaces/CJRonald/burn-segmentation-demo){:target="_blank"}
-- **Flap perfusion prediction** — temperature + color features → [demo](https://huggingface.co/spaces/CJRonald/flap-prediction-demo){:target="_blank"}
-  <br><em>Note: a 2022 research prototype with known patient-level data leakage — shown for transparency, not as a clinical tool.</em>
+- **Free-flap circulation prediction** — ResNet18 on flap photographs (patient-level CV macro-F1 0.82) → [demo](https://huggingface.co/spaces/CJRonald/flap-prediction-demo){:target="_blank"}
+  <br><em>Note: a single-institution methodology demo, not prospectively validated — not a clinical tool. It replaces a 2022 prototype whose reported accuracy was inflated by patient-level data leakage.</em>
 
 ---
 
