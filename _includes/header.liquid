@@ -145,6 +145,20 @@
               </a>
             </li>
           {% endif %}
+          {% if site.instagram_username %}
+            <!-- Instagram -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://www.instagram.com/{{ site.instagram_username }}/"
+                title="Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="ti ti-brand-instagram"></i>
+              </a>
+            </li>
+          {% endif %}
           {% if site.search_enabled %}
             <!-- Search -->
             <li class="nav-item">

@@ -7,5 +7,6 @@ email: contact@cjhuang.com # your email address (Cloudflare Email Routing → Gm
 # github_username: CJRonald # hidden from header
 scholar_userid: o5hHtnQAAAAJ # Google Scholar author ID (header icon comes from _config.yml; this feeds schema.org sameAs)
 linkedin_username: cjronald # LinkedIn (header icon comes from _config.yml; this feeds schema.org sameAs)
-orcid_id: 0009-0006-8111-5329 # ORCID iD (metadata/schema.org sameAs; header icons stay Scholar + LinkedIn)
+orcid_id: 0009-0006-8111-5329 # ORCID iD (metadata/schema.org sameAs; header icons stay Scholar + LinkedIn + Instagram)
+instagram_id: drcjhuang # Instagram (header icon comes from _config.yml; this feeds schema.org sameAs)
 # rss_icon: false # commented out → RSS icon hidden
